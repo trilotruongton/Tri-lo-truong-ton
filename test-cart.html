@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Giỏ hàng sách</title>
+</head>
+<body>
+  <h2>Chọn sách để thêm vào giỏ hàng</h2>
+
+  <form id="cartForm">
+    <label for="bookSelect">Chọn sách:</label>
+    <select id="bookSelect" name="bookSelect" required>
+      <option value="">-- Chọn một cuốn sách --</option>
+      <option value="tuyet-mat-nhan-tinh">Tuyệt Mật Nhân Tính</option>
+      <option value="nhan-tinh-den-trang">Nhân Tính Đen Trắng</option>
+      <option value="kiem-dai">Kiếm Đại</option>
+      <option value="nhan-tinh-xa-giao">Nhân Tính Xã Giao</option>
+      <option value="thien-co-38-cuc">Thiên Cơ 38 Cục</option>
+      <option value="logic-nguoi-ngheo">Logic Người Nghèo</option>
+      <option value="tu-duy-sau-sac">Tư Duy Sâu Sắc</option>
+    </select>
+
+    <button type="submit">Thêm vào giỏ hàng</button>
+  </form>
+
+  <h3>Giỏ hàng của bạn:</h3>
+  <ul id="cartList"></ul>
+
+  <script>
+    const cartForm = document.getElementById('cartForm');
+    const cartList = document.getElementById('cartList');
+
+    const bookNames = {
+      "tuyet-mat-nhan-tinh": "Tuyệt Mật Nhân Tính",
+      "nhan-tinh-den-trang": "Nhân Tính Đen Trắng",
+      "kiem-dai": "Kiếm Đại",
+      "nhan-tinh-xa-giao": "Nhân Tính Xã Giao",
+      "thien-co-38-cuc": "Thiên Cơ 38 Cục",
+      "logic-nguoi-ngheo": "Logic Người Nghèo",
+      "tu-duy-sau-sac": "Tư Duy Sâu Sắc"
+    };
+
+    let cart = [];
+
+    cartForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const bookValue = this.bookSelect.value;
+
+      if(!bookValue) {
+        alert('Vui lòng chọn một cuốn sách');
+        return;
+      }
+
+      const existing = cart.find(item => item.book === bookValue);
+      if(existing) {
+        alert('Sách này đã có trong giỏ hàng!');
+      } else {
+        cart.push({ book: bookValue, quantity: 1 });
+        renderCart();
+      }
+
+      this.reset();
+    });
+
+    function renderCart() {
+      cartList.innerHTML = '';
+
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${bookNames[item.book]} - Số lượng: ${item.quantity}`;
+        cartList.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>
