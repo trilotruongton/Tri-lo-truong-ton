@@ -4,113 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trí Lộ Trường Tồn</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-        header { background: #333; color: white; text-align: center; padding: 20px; }
-        header img { max-width: 150px; display: block; margin: 0 auto; }
-        .container { width: 90%; margin: auto; padding: 20px; }
-        .book { display: flex; background: #f9f9f9; margin-bottom: 20px; border: 1px solid #ddd; padding: 10px; }
-        .book img { width: 200px; height: auto; margin-right: 20px; }
-        .book-info { flex: 1; }
-        .old-price { text-decoration: line-through; color: red; margin-right: 10px; }
-        .price { color: green; font-weight: bold; }
-        footer { background: #333; color: white; text-align: center; padding: 20px; margin-top: 30px; }
-        footer a { color: yellow; font-weight: bold; text-decoration: none; }
-        footer a:hover { text-decoration: underline; }
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background: #f4f4f4; }
+        header { background: #222; color: #fff; padding: 10px 20px; text-align: center; }
+        nav ul { list-style: none; padding: 0; display: flex; justify-content: center; background: #333; margin: 0; }
+        nav ul li { margin: 0 15px; }
+        nav ul li a { color: #fff; text-decoration: none; }
+        nav ul li a:hover { text-decoration: underline; }
+        .qr { text-align: center; margin: 20px 0; }
+        .books { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 20px; }
+        .book-item { background: #fff; padding: 15px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .book-item img { max-width: 100%; border-radius: 5px; }
+        .price { color: red; font-weight: bold; }
+        .old-price { text-decoration: line-through; color: #777; margin-right: 8px; }
+        footer { background: #333; color: #fff; text-align: center; padding: 10px; margin-top: 20px; }
     </style>
 </head>
 <body>
 
 <header>
-    <img src="images/qr-code.png" alt="QR Code">
     <h1>Trí Lộ Trường Tồn</h1>
 </header>
 
-<div class="container">
+<nav>
+    <ul>
+        <li><a href="index.html">Trang chủ</a></li>
+        <li><a href="mailto:vang11112006@gmail.com">Liên hệ</a></li>
+    </ul>
+</nav>
 
+<div class="qr">
+    <h2>Quét QR để kết nối</h2>
+    <img src="images/qr-code.jpg" alt="QR Code">
+</div>
+
+<section class="books">
     <!-- 1 -->
-    <div class="book">
+    <div class="book-item">
         <img src="images/tuyet-mat-nhan-tinh.jpg" alt="Tuyệt Mật Nhân Tính">
-        <div class="book-info">
-            <h2>Tuyệt Mật Nhân Tính</h2>
-            <p><strong>Tác giả:</strong> Xuyên Thấu Nhân Tính</p>
-            <p><span class="old-price">399.000₫</span> <span class="price">100.000₫</span></p>
-            <p>“Tuyệt Mật Nhân Tính” là hành trình khám phá sâu sắc tâm hồn con người...</p>
-        </div>
+        <h3>Tuyệt Mật Nhân Tính</h3>
+        <p>Tác giả: Xuyên Thấu Nhân Tính</p>
+        <p><span class="old-price">399.000₫</span><span class="price">100.000₫</span></p>
+        <p>“Tuyệt Mật Nhân Tính” là hành trình khám phá sâu sắc vào tâm hồn con người...</p>
     </div>
 
     <!-- 2 -->
-    <div class="book">
+    <div class="book-item">
         <img src="images/thien-co-38-cuc.jpg" alt="Thiên Cơ 38 Cục">
-        <div class="book-info">
-            <h2>Thiên Cơ 38 Cục</h2>
-            <p><strong>Tác giả:</strong> Xuyên Thấu Nhân Tính</p>
-            <p><span class="old-price">399.000₫</span> <span class="price">120.000₫</span></p>
-            <p>“Thiên Cơ 38 Cục” là tập hợp các mưu lược thâm sâu...</p>
-        </div>
+        <h3>Thiên Cơ 38 Cục</h3>
+        <p>Tác giả: Xuyên Thấu Nhân Tính</p>
+        <p><span class="old-price">399.000₫</span><span class="price">120.000₫</span></p>
+        <p>“Thiên Cơ 38 Cục” là tập hợp 38 mưu kế như những nước cờ thâm sâu...</p>
     </div>
 
     <!-- 3 -->
-    <div class="book">
+    <div class="book-item">
         <img src="images/tu-duy-sau-sac.jpg" alt="Tư Duy Sâu Sắc">
-        <div class="book-info">
-            <h2>Tư Duy Sâu Sắc</h2>
-            <p><strong>Tác giả:</strong> Xuyên Thấu Nhân Tính</p>
-            <p><span class="old-price">399.000₫</span> <span class="price">100.000₫</span></p>
-            <p>“Tư Duy Sâu Sắc” mở ra những góc nhìn sâu lắng về bản chất con người...</p>
-        </div>
+        <h3>Tư Duy Sâu Sắc</h3>
+        <p>Tác giả: Xuyên Thấu Nhân Tính</p>
+        <p><span class="old-price">399.000₫</span><span class="price">100.000₫</span></p>
+        <p>Ebook “Tư Duy Sâu Sắc” mở ra những góc nhìn sâu lắng về bản chất con người...</p>
     </div>
 
     <!-- 4 -->
-    <div class="book">
+    <div class="book-item">
         <img src="images/logic-nguoi-ngheo.jpg" alt="Logic Người Nghèo">
-        <div class="book-info">
-            <h2>Logic Người Nghèo</h2>
-            <p><strong>Tác giả:</strong> Xuyên Thấu Nhân Tính</p>
-            <p><span class="old-price">399.000₫</span> <span class="price">45.000₫</span></p>
-            <p>“Logic Người Nghèo” lý giải nguyên nhân khiến nhiều người mãi nghèo...</p>
-        </div>
+        <h3>Logic Người Nghèo</h3>
+        <p>Tác giả: Xuyên Thấu Nhân Tính</p>
+        <p><span class="old-price">399.000₫</span><span class="price">45.000₫</span></p>
+        <p>“Logic Người Nghèo” phân tích sự khác biệt tư duy giữa người giàu và người nghèo...</p>
     </div>
 
     <!-- 5 -->
-    <div class="book">
+    <div class="book-item">
         <img src="images/nhan-tinh-den-trang.jpg" alt="Nhân Tính Đen Trắng">
-        <div class="book-info">
-            <h2>Nhân Tính Đen Trắng</h2>
-            <p><strong>Tác giả:</strong> Xuyên Thấu Nhân Tính</p>
-            <p><span class="old-price">399.000₫</span> <span class="price">80.000₫</span></p>
-            <p>“Nhân Tính Đen Trắng” lột tả sự đa diện của bản chất con người...</p>
-        </div>
+        <h3>Nhân Tính Đen Trắng</h3>
+        <p>Tác giả: Xuyên Thấu Nhân Tính</p>
+        <p><span class="old-price">399.000₫</span><span class="price">80.000₫</span></p>
+        <p>“Nhân Tính Đen Trắng” đi sâu vào mối quan hệ giữa mặt sáng và tối của con người...</p>
     </div>
 
     <!-- 6 -->
-    <div class="book">
+    <div class="book-item">
         <img src="images/kiem-dai.jpg" alt="Kiếm Đại">
-        <div class="book-info">
-            <h2>Kiếm Đại</h2>
-            <p><strong>Tác giả:</strong> Xuyên Thấu Nhân Tính</p>
-            <p><span class="old-price">399.000₫</span> <span class="price">80.000₫</span></p>
-            <p>Tổng hợp hệ thống lý thuyết và kinh nghiệm quý báu từ Kiếm Đại...</p>
-        </div>
+        <h3>Kiếm Đại</h3>
+        <p>Tác giả: Xuyên Thấu Nhân Tính</p>
+        <p><span class="old-price">399.000₫</span><span class="price">80.000₫</span></p>
+        <p>Tổng hợp hệ thống lý thuyết và triết lý sống sâu sắc của Kiếm Đại...</p>
     </div>
 
     <!-- 7 -->
-    <div class="book">
+    <div class="book-item">
         <img src="images/nhan-tinh-xa-giao.jpg" alt="Nhân Tính Xã Giao – Tư Duy Thủ Sách">
-        <div class="book-info">
-            <h2>Nhân Tính Xã Giao – Tư Duy Thủ Sách</h2>
-            <p><strong>Tác giả:</strong> Xuyên Thấu Nhân Tính</p>
-            <p><span class="old-price">399.000₫</span> <span class="price">80.000₫</span></p>
-            <p>Khám phá nghệ thuật ứng xử và chiến lược tư duy trong xã hội hiện đại...</p>
-        </div>
+        <h3>Nhân Tính Xã Giao – Tư Duy Thủ Sách</h3>
+        <p>Tác giả: Xuyên Thấu Nhân Tính</p>
+        <p><span class="old-price">399.000₫</span><span class="price">80.000₫</span></p>
+        <p>Cuốn sách về nghệ thuật ứng xử và chiến lược tư duy trong xã hội hiện đại...</p>
     </div>
-
-</div>
+</section>
 
 <footer>
-    <p>📧 Liên hệ: 
-        <a href="mailto:vang11112006@gmail.com">Gửi email cho tôi</a>
-    </p>
+    <p>Liên hệ: <a href="mailto:vang11112006@gmail.com" style="color:white;">vang11112006@gmail.com</a></p>
 </footer>
 
 </body>
