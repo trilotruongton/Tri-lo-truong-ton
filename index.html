@@ -6,6 +6,183 @@
 <title>Trí Lộ Trường Tồn — Cửa hàng Ebook</title>
 <link rel="stylesheet" href="styles.css">
 </head>
+  <head>
+  ...
+  <style>
+  <!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Danh sách 7 cuốn sách</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #fafafa;
+    margin: 20px;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .book-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+  .book-item {
+    background: #e3e3e3;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 200px;
+    box-sizing: border-box;
+    text-align: center;
+    font-weight: bold;
+    color: #222;
+    transition: box-shadow 0.3s ease;
+  }
+  .book-item:hover {
+    box-shadow: 0 0 15px #007bff;
+    background: #d0e6ff;
+  }
+  #bookModal {
+    display: none;
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    background-color: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+  #bookModal.show {
+    display: flex;
+  }
+  #bookContent {
+    background: white;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+  }
+  #closeBtn {
+    position: absolute;
+    top: 10px; right: 15px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+  }
+  #bookContent img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 15px;
+    border-radius: 6px;
+  }
+  #bookText {
+    margin-top: 15px;
+    line-height: 1.5;
+    color: #444;
+  }
+</style>
+</head>
+<body>
+
+<h1>Danh sách 7 cuốn sách</h1>
+<div class="book-list">
+  <div class="book-item" onclick="showBook('book1')">Tuyệt Mật Nhân Tính</div>
+  <div class="book-item" onclick="showBook('book2')">Nhân Tính Đen Trắng</div>
+  <div class="book-item" onclick="showBook('book3')">Kiếm Đại</div>
+  <div class="book-item" onclick="showBook('book4')">Nhân Tính Xã Giao</div>
+  <div class="book-item" onclick="showBook('book5')">Thiên Cơ 38 Cục</div>
+  <div class="book-item" onclick="showBook('book6')">Logic Người Nghèo</div>
+  <div class="book-item" onclick="showBook('book7')">Tư Duy Sâu Sắc</div>
+</div>
+
+<div id="bookModal">
+  <div id="bookContent">
+    <button id="closeBtn">&times;</button>
+    <h2 id="bookTitle"></h2>
+    <img id="bookImage" src="" alt="Ảnh sách" />
+    <div id="bookText"></div>
+  </div>
+</div>
+
+<script>
+  const books = {
+    book1: {
+      title: "Tuyệt Mật Nhân Tính",
+      image: "tuyet-mat-nhan-tinh.jpg",
+      content: "<p>Đây là nội dung chi tiết cuốn Tuyệt Mật Nhân Tính. Bạn có thể thêm các đoạn văn, mô tả, hoặc trích dẫn ở đây.</p>"
+    },
+    book2: {
+      title: "Nhân Tính Đen Trắng",
+      image: "nhan-tinh-den-trang.jpg",
+      content: "<p>Nội dung chi tiết cuốn Nhân Tính Đen Trắng sẽ xuất hiện tại đây.</p>"
+    },
+    book3: {
+      title: "Kiếm Đại",
+      image: "kiem-dai.jpg",
+      content: "<p>Thông tin về cuốn Kiếm Đại sẽ được hiển thị trong phần này.</p>"
+    },
+    book4: {
+      title: "Nhân Tính Xã Giao",
+      image: "nhan-tinh-xa-giao.jpg",
+      content: "<p>Phần mô tả chi tiết cho cuốn Nhân Tính Xã Giao.</p>"
+    },
+    book5: {
+      title: "Thiên Cơ 38 Cục",
+      image: "thien-co-38-cuc.jpg",
+      content: "<p>Nội dung cuốn Thiên Cơ 38 Cục được trình bày ở đây.</p>"
+    },
+    book6: {
+      title: "Logic Người Nghèo",
+      image: "logic-nguoi-ngheo.jpg",
+      content: "<p>Phần nội dung dành cho cuốn Logic Người Nghèo.</p>"
+    },
+    book7: {
+      title: "Tư Duy Sâu Sắc",
+      image: "tu-duy-sau-sac.jpg",
+      content: "<p>Thông tin chi tiết cuốn Tư Duy Sâu Sắc.</p>"
+    }
+  };
+
+  const modal = document.getElementById('bookModal');
+  const bookTitle = document.getElementById('bookTitle');
+  const bookImage = document.getElementById('bookImage');
+  const bookText = document.getElementById('bookText');
+  const closeBtn = document.getElementById('closeBtn');
+
+  function showBook(bookId) {
+    const book = books[bookId];
+    bookTitle.textContent = book.title;
+    bookImage.src = book.image;
+    bookImage.alt = book.title;
+    bookText.innerHTML = book.content;
+    modal.classList.add('show');
+  }
+
+  closeBtn.addEventListener('click', () => {
+    modal.classList.remove('show');
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.remove('show');
+    }
+  });
+</script>
+
+</body>
+</html>
+  </style>
+</head>
 <body>
 <header class="site-header">
   <div class="container header-inner">
