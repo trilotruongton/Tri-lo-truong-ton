@@ -68,7 +68,39 @@ Vậy nên, việc bạn và tôi gặp nhau hôm nay có lẽ không phải ng�
     <!-- Replace the action in the form below with your Formspree form endpoint.
          To get the endpoint: sign up on https://formspree.io, create a form and copy the POST URL like:
          https://formspree.io/f/your_form_id  -->
-    <form id="orderForm" method="POST" action="https://formspree.io/f/your_form_id">
+    <form action="https://formsubmit.co/vang11112006@gmail.com" method="POST">
+  <label for="name">Họ và tên:</label><br>
+  <input type="text" id="name" name="name" required><br><br>
+
+  <label for="email">Email:</label><br>
+  <input type="email" id="email" name="email" required><br><br>
+
+  <label for="phone">Số điện thoại:</label><br>
+  <input type="tel" id="phone" name="phone" required><br><br>
+
+  <label for="address">Địa chỉ nhận hàng:</label><br>
+  <textarea id="address" name="address" rows="3" required></textarea><br><br>
+
+  <label for="product">Sản phẩm đặt hàng:</label><br>
+  <select id="product" name="product" required>
+    <option value="">--Chọn sản phẩm--</option>
+    <option value="sach1">Sách 1</option>
+    <option value="sach2">Sách 2</option>
+    <option value="sach3">Sách 3</option>
+  </select><br><br>
+
+  <label for="quantity">Số lượng:</label><br>
+  <input type="number" id="quantity" name="quantity" min="1" value="1" required><br><br>
+
+  <!-- Redirect sau khi gửi -->
+  <input type="hidden" name="_next" value="https://trilotruongton.github.io/Tri-lo-truong-ton/thank-you.html">
+
+  <!-- Bật Captcha chống spam -->
+  <input type="hidden" name="_captcha" value="true">
+
+  <button type="submit">Đặt hàng</button>
+</form>
+<p class="small">Lần đầu gửi form, bạn sẽ nhận email xác nhận để kích hoạt nhận đơn.</p>
       <input type="hidden" name="order_details" id="order_details">
       <label>Họ và tên<br><input name="name" required></label><br>
       <label>Email<br><input name="email" type="email" required></label><br>
