@@ -1,299 +1,175 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thư viện ảnh</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f5f5f5;
-            padding: 20px;
-        }
-        .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        .gallery img {
-            max-width: 250px;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-            transition: transform 0.2s;
-        }
-        .gallery img:hover {
-            transform: scale(1.05);
-        }
-    </style>
-</head>
-<body>
-
-    <h1>Bộ sưu tập ảnh</h1>
-    <div class="gallery">
-    <table border="1" cellpadding="10" cellspacing="0">
-    <tr>
-        <th>Ảnh sách</th>
-        <th>Tên sách</th
-        <img src="images/tuyet-mat-nhan-tinh.jpg" alt="Tuyệt mật nhân tính">
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Trí Lộ Trường Tồn — Cửa hàng Ebook</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trí Lộ Trường Tồn - Sách</title>
   <style>
-    :root{
-      --card-bg: #ffffff;
-      --page-bg: #f5f7fb;
-      --accent: #ff6b00;
-      --muted: #666;
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+      color: #333;
     }
-    body{
-      margin:0;
-      font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background:var(--page-bg);
-      color:#222;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+    header {
+      text-align: center;
+      background: #222;
+      color: #fff;
+      padding: 20px;
     }
-    header{
-      background:#0f1724;
-      color:white;
-      padding:18px 20px;
-      display:flex;
-      align-items:center;
-      gap:16px;
+    nav {
+      background: #444;
     }
-    header h1{font-size:18px;margin:0}
-    .wrap{max-width:1100px;margin:24px auto;padding:0 16px;}
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-      gap:18px;
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
     }
-    .card{
-      background:var(--card-bg);
-      border-radius:10px;
-      overflow:hidden;
-      box-shadow:0 6px 18px rgba(12,20,31,0.06);
-      display:flex;
-      flex-direction:column;
-      min-height:320px;
+    nav li {
+      margin: 0 15px;
     }
-    .thumb{
-      width:100%;
-      height:0;
-      padding-bottom:140%;
-      background-size:cover;
-      background-position:center;
-      border-bottom:1px solid rgba(0,0,0,0.04);
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
     }
-    .info{padding:14px 16px; display:flex; flex-direction:column; gap:8px; flex:1;}
-    .title{font-weight:700;font-size:16px;color:#111;margin:0}
-    .author{font-size:13px;color:var(--muted);margin:0}
-    .desc{font-size:13px;color:#333;line-height:1.45;margin-top:6px;flex:1; overflow:hidden}
-    .price-row{margin-top:8px;display:flex;align-items:center;gap:8px}
-    .old{color:#c0392b;text-decoration:line-through;font-weight:600}
-    .old-twice{color:#c0392b;font-weight:600} /* shows a second 399 as requested */
-    .new{color:var(--accent);font-weight:700;font-size:16px}
-    .actions{margin-top:10px;display:flex;gap:10px}
-    .btn{background:var(--accent);color:white;padding:8px 12px;border-radius:6px;text-decoration:none;font-weight:600;text-align:center;}
-    .btn.secondary{background:#e6e9ee;color:#222}
-    footer{padding:24px;text-align:center;color:var(--muted);font-size:13px}
-    @media (max-width:520px){
-      .desc{font-size:13px}
-      header h1{font-size:15px}
+    .qr-code {
+      text-align: center;
+      background: white;
+      padding: 15px;
+    }
+    .qr-code img {
+      max-width: 200px;
+    }
+    main {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .book-item {
+      background: white;
+      padding: 15px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    .book-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+    }
+    .price {
+      color: red;
+      font-weight: bold;
+    }
+    .old-price {
+      text-decoration: line-through;
+      color: gray;
+      margin-right: 10px;
+    }
+    p {
+      white-space: pre-line;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Trí Lộ Trường Tồn — Cửa hàng Ebook</h1>
-  </header>
 
-  <main class="wrap">
-    <section class="grid">
+<header>
+  <h1>Trí Lộ Trường Tồn</h1>
+</header>
 
-      <!-- 1: Tuyệt Mật Nhân Tính -->
-      <article class="card">
-        <div class="thumb" style="background-image:url('images/tuyet-mat-nhan-tinh.jpg')"></div>
-        <div class="info">
-        <div class="gallery-item">
-    <img src="images/tuyet-mat-nhan-tinh.jpg" alt="Tuyệt mật nhân tính">
-    <p>Tuyệt mật nhân tính</p>
+<div class="qr-code">
+  <img src="images/qr-code.png" alt="QR Code Liên hệ">
 </div>
-          <h2 class="title">Tuyệt Mật Nhân Tính</h2>
-          <div class="author">Tác giả: Xuyên Thấu Nhân Tính</div>
-          <div class="price-row">
-            <div class="old">399.000₫</div>
-            <div class="new">100.000₫</div>
-          </div>
-          <p class="desc">
-            “Tuyệt Mật Nhân Tính – Cuốn Sách Giúp Đột Phá Trong Cuộc Sống Và Sự Nghiệp” là một hành trình khám phá sâu sắc vào tận cùng của tâm hồn con người, hé lộ những bí ẩn cổ xưa và những quy luật bất biến của nhân tính. Cuốn sách này không chỉ đơn thuần là một tài liệu nghiên cứu, mà còn là chiếc chìa khóa mở ra những đột phá vượt bậc trong cuộc sống và sự nghiệp.
-          </p>
-          <div class="actions">
-            <a class="btn" href="doc-thu.html?sach=tuyet-mat-nhan-tinh">Đọc thử</a>
-            <a class="btn secondary" href="#" onclick="alert('Vui lòng liên hệ vang11112006@gmail.com để mua')">Mua / Liên hệ</a>
-          </div>
-        </div>
-      </article>
 
-      <!-- 2: Thiên Cơ 38 Cục -->
-      <article class="card">
-        <div class="thumb" style="background-image:url('images/thien-co-38-cuc.jpg')"></div>
-        <div class="info">
-            <div class="gallery-item">
-    <img src="images/thien-co-38-cuc.jpg" alt="Thiên cơ 38 cục">
-    <p>Thiên cơ 38 cục</p>
-</div>
-          <h2 class="title">Thiên Cơ 38 Cục</h2>
-          <div class="author">Tác giả: Xuyên Thấu Nhân Tính</div>
-          <div class="price-row">
-            <div class="old">399.000₫</div>
-            <div class="new">120.000₫</div>
-          </div>
-          <p class="desc">
-            “Thiên Cơ 38 Cục” không chỉ là một cuốn sách về mưu lược mà còn là tấm gương phản chiếu tâm lý con người, dẫn dắt người đọc qua câu chuyện lịch sử, điển tích và sự kiện để khám phá các mưu kế kinh điển và rèn luyện tư duy ứng phó linh hoạt với mọi biến động.
-          </p>
-          <div class="actions">
-            <a class="btn" href="doc-thu.html?sach=thien-co-38-cuc">Đọc thử</a>
-            <a class="btn secondary" href="#" onclick="alert('Vui lòng liên hệ vang11112006@gmail.com để mua')">Mua / Liên hệ</a>
-          </div>
-        </div>
-      </article>
+<nav>
+  <ul>
+    <li><a href="index.html">Trang chủ</a></li>
+    <li><a href="about.html">Giới thiệu</a></li>
+    <li><a href="shop.html">Sách</a></li>
+    <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=vang11112006@gmail.com" target="_blank" rel="noopener">Liên hệ</a></li>
+  </ul>
+</nav>
 
-      <!-- 3: Tư Duy Sâu Sắc -->
-      <article class="card">
-        <div class="thumb" style="background-image:url('images/tu-duy-sau-sac.jpg')"></div>
-        <div class="info">
-            <div class="gallery-item">
-    <img src="images/tu-duy-logic.jpg" alt="Tư duy logic">
-    <p>Tư duy logic</p>
-</div>
-          <h2 class="title">Tư Duy Sâu Sắc</h2>
-          <div class="author">Tác giả: Xuyên Thấu Nhân Tính</div>
-          <div class="price-row">
-            <div class="old">399.000₫</div>
-            <div class="new">100.000₫</div>
-          </div>
-          <p class="desc">
-            Ebook “Tư Duy Sâu Sắc” là chìa khóa mở ra những góc nhìn độc đáo và sâu lắng về bản chất con người, dẫn dắt người đọc khám phá tận sâu bên trong tâm trí, từ suy nghĩ vô thức tới phương pháp làm chủ bản thân.
-          </p>
-          <div class="actions">
-            <a class="btn" href="doc-thu.html?sach=tu-duy-sau-sac">Đọc thử</a>
-            <a class="btn secondary" href="#" onclick="alert('Vui lòng liên hệ vang11112006@gmail.com để mua')">Mua / Liên hệ</a>
-          </div>
-        </div>
-      </article>
+<main>
+  <!-- 1 -->
+  <div class="book-item">
+    <img src="images/tuyet-mat-nhan-tinh.jpg" alt="Tuyệt Mật Nhân Tính">
+    <h2>Tuyệt Mật Nhân Tính</h2>
+    <p><strong>Tác giả:</strong> Xuyên Thấu Nhân Tính</p>
+    <p><span class="old-price">399.000₫</span> <span class="price">100.000₫</span></p>
+    <p>Tuyệt Mật Nhân Tính – Cuốn Sách Giúp Đột Phá Trong Cuộc Sống Và Sự Nghiệp” là một hành trình khám phá sâu sắc vào tận cùng của tâm hồn con người, hé lộ những bí ẩn cổ xưa và những quy luật bất biến của nhân tính. Cuốn sách này không chỉ đơn thuần là một tài liệu nghiên cứu, mà còn là chiếc chìa khóa mở ra cánh cửa đến những đột phá vượt bậc trong cuộc sống và sự nghiệp.
+Với lối viết lôi cuốn và giàu hình ảnh, tác giả dẫn dắt người đọc qua những câu chuyện hấp dẫn, những phân tích sắc bén và những bài học quý báu. Bạn sẽ khám phá những bí mật chưa từng được tiết lộ về cách con người suy nghĩ, cảm nhận và hành động, từ đó tìm ra con đường riêng để đạt được thành công và hạnh phúc.
+“Tuyệt Mật Nhân Tính” không chỉ là một cuốn sách, mà là người bạn đồng hành, giúp bạn khai phá tiềm năng ẩn giấu và trở thành phiên bản tốt nhất của chính mình. Hãy sẵn sàng cho một cuộc hành trình đầy cảm hứng và đột phá cùng “Tuyệt Mật Nhân Tính”!
+...
+</p>
+  </div>
 
-      <!-- 4: Logic Người Nghèo -->
-      <article class="card">
-        <div class="thumb" style="background-image:url('images/logic-nguoi-ngheo.jpg')"></div>
-        <div class="info">
-            <div class="gallery-item">
-    <img src="images/logic-suy-nghi-cua-nguoi-ngheo.jpg" alt="Logic suy nghĩ của người nghèo">
-    <p>Logic suy nghĩ của người nghèo</p>
-</div>
-          <h2 class="title">Logic Người Nghèo</h2>
-          <div class="author">Tác giả: Xuyên Thấu Nhân Tính</div>
-          <div class="price-row">
-            <div class="old">399.000₫</div>
-            <div class="new">45.000₫</div>
-          </div>
-          <p class="desc">
-            “Lôgic Người Nghèo” phân tích chi tiết về sự khác biệt giữa tư duy, hành động và thói quen của người giàu và người nghèo — cung cấp lộ trình thay đổi tư duy để tiến tới tự do tài chính.
-          </p>
-          <div class="actions">
-            <a class="btn" href="doc-thu.html?sach=logic-nguoi-ngheo">Đọc thử</a>
-            <a class="btn secondary" href="#" onclick="alert('Vui lòng liên hệ vang11112006@gmail.com để mua')">Mua / Liên hệ</a>
-          </div>
-        </div>
-      </article>
+  <!-- 2 -->
+  <div class="book-item">
+    <img src="images/thien-co-38-cuc.jpg" alt="Thiên Cơ 38 Cục">
+    <h2>Thiên Cơ 38 Cục</h2>
+    <p><strong>Tác giả:</strong> Xuyên Thấu Nhân Tính</p>
+    <p><span class="old-price">399.000₫</span> <span class="price">120.000₫</span></p>
+    <p>Thiên Cơ 38 Cục” không chỉ đơn thuần là một cuốn sách về mưu lược, mà còn là tấm gương phản chiếu tâm lý con người, giúp độc giả thấu hiểu bản chất sâu xa của những chiến lược trong cuộc sống.
+...
+</p>
+  </div>
 
-      <!-- 5: Nhân Tính Đen Trắng -->
-      <article class="card">
-        <div class="thumb" style="background-image:url('images/nhan-tinh-den-trang.jpg')"></div>
-        <div class="info">
-            <div class="gallery-item">
-    <img src="images/nhan-tinh-den-trang.jpg" alt="Nhân tính đen trắng">
-    <p>Nhân tính đen trắng</p>
-</div>
-          <h2 class="title">Nhân Tính Đen Trắng</h2>
-          <div class="author">Tác giả: Xuyên Thấu Nhân Tính</div>
-          <div class="price-row">
-            <div class="old">399.000₫</div>
-            <div class="new">80.000₫</div>
-          </div>
-          <p class="desc">
-            “Nhân Tính Đen Trắng” đi sâu vào bản chất đa diện của con người, phản chiếu mặt tối và sáng của tâm hồn, giúp độc giả đối diện bản thân và hiểu rõ các mâu thuẫn nội tại.
-          </p>
-          <div class="actions">
-            <a class="btn" href="doc-thu.html?sach=nhan-tinh-den-trang">Đọc thử</a>
-            <a class="btn secondary" href="#" onclick="alert('Vui lòng liên hệ vang11112006@gmail.com để mua')">Mua / Liên hệ</a>
-          </div>
-        </div>
-      </article>
+  <!-- 3 -->
+  <div class="book-item">
+    <img src="images/tu-duy-sau-sac.jpg" alt="Tư Duy Sâu Sắc">
+    <h2>Tư Duy Sâu Sắc</h2>
+    <p><strong>Tác giả:</strong> Xuyên Thấu Nhân Tính</p>
+    <p><span class="old-price">399.000₫</span> <span class="price">100.000₫</span></p>
+    <p>Ebook Tư Duy Sâu Sắc là chìa khóa mở ra những góc nhìn độc đáo...
+</p>
+  </div>
 
-      <!-- 6: Kiếm Đại -->
-      <article class="card">
-        <div class="thumb" style="background-image:url('images/kiem-dai.jpg')"></div>
-        <div class="info">
-            <div class="gallery-item">
-    <img src="images/kiem-dai.jpg" alt="Kiếm đại">
-    <p>Kiếm đại</p>
-</div>
-          <h2 class="title">Kiếm Đại</h2>
-          <div class="author">Tác giả: Xuyên Thấu Nhân Tính</div>
-          <div class="price-row">
-            <div class="old">399.000₫</div>
-            <div class="new">80.000₫</div>
-          </div>
-          <p class="desc">
-            Tác phẩm tổng hợp và hệ thống hóa các bài viết, bình luận và tư tưởng của Kiếm Đại — một nguồn học thực tế, tóm tắt và hệ thống hoá để rút ra bài học sống.
-          </p>
-          <div class="actions">
-            <a class="btn" href="doc-thu.html?sach=kiem-dai">Đọc thử</a>
-            <a class="btn secondary" href="#" onclick="alert('Vui lòng liên hệ vang11112006@gmail.com để mua')">Mua / Liên hệ</a>
-          </div>
-        </div>
-      </article>
+  <!-- 4 -->
+  <div class="book-item">
+    <img src="images/logic-nguoi-ngheo.jpg" alt="Logic Người Nghèo">
+    <h2>Logic Người Nghèo</h2>
+    <p><strong>Tác giả:</strong> Xuyên Thấu Nhân Tính</p>
+    <p><span class="old-price">399.000₫</span> <span class="price">45.000₫</span></p>
+    <p>Lôgic Người Nghèo” là cuốn sách đặc biệt ThogenZ...
+</p>
+  </div>
 
-      <!-- 7: Nhân Tính Xã Giao – Tư Duy Thủ Sách -->
-      <article class="card">
-        <div class="thumb" style="background-image:url('images/nhan-tinh-xa-giao.jpg')"></div>
-        <div class="info">
-            <div class="gallery-item">
-    <img src="images/nhan-tinh-xa-giao.jpg" alt="Nhân tính xã giao">
-    <p>Nhân tính xã giao</p>
-</div>
-          <h2 class="title">Nhân Tính Xã Giao – Tư Duy Thủ Sách</h2>
-          <div class="author">Tác giả: Xuyên Thấu Nhân Tính</div>
-          <div class="price-row">
-            <div class="old">399.000₫</div>
-            <div class="new">80.000₫</div>
-          </div>
-          <p class="desc">
-            Khám phá nghệ thuật ứng xử và chiến lược tư duy trong xã hội hiện đại — phân tích nhân tính xã giao, cách xây dựng tư duy chiến lược, ứng dụng vào đàm phán và quản lý cảm xúc.
-          </p>
-          <div class="actions">
-            <a class="btn" href="doc-thu.html?sach=nhan-tinh-xa-giao">Đọc thử</a>
-            <a class="btn secondary" href="#" onclick="alert('Vui lòng liên hệ vang11112006@gmail.com để mua')">Mua / Liên hệ</a>
-          </div>
-        </div>
-      </article>
+  <!-- 5 -->
+  <div class="book-item">
+    <img src="images/nhan-tinh-den-trang.jpg" alt="Nhân Tính Đen Trắng">
+    <h2>Nhân Tính Đen Trắng</h2>
+    <p><strong>Tác giả:</strong> Xuyên Thấu Nhân Tính</p>
+    <p><span class="old-price">399.000₫</span> <span class="price">80.000₫</span></p>
+    <p>Ebook “Nhân Tính Đen Trắng”...
+</p>
+  </div>
 
-    </section>
-  </main>
+  <!-- 6 -->
+  <div class="book-item">
+    <img src="images/kiem-dai.jpg" alt="Kiếm Đại">
+    <h2>Kiếm Đại</h2>
+    <p><strong>Tác giả:</strong> Xuyên Thấu Nhân Tính</p>
+    <p><span class="old-price">399.000₫</span> <span class="price">80.000₫</span></p>
+    <p>Lời mở đầu... 
+</p>
+  </div>
 
-  <footer>
-    © 2025 Trí Lộ Trường Tồn — Liên hệ: <strong>vang11112006@gmail.com</strong>
-  </footer>
+  <!-- 7 -->
+  <div class="book-item">
+    <img src="images/nhan-tinh-xa-giao.jpg" alt="Nhân Tính Xã Giao – Tư Duy Thủ Sách">
+    <h2>Nhân Tính Xã Giao – Tư Duy Thủ Sách</h2>
+    <p><strong>Tác giả:</strong> Xuyên Thấu Nhân Tính</p>
+    <p><span class="old-price">399.000₫</span> <span class="price">80.000₫</span></p>
+    <p>Ebook “Nhân tính xã giao – Tư duy thủ sách”...
+</p>
+  </div>
+
+</main>
+
 </body>
 </html>
-      </div>
-    </div>
-  </section>
-  <footer>
-    <p>Liên hệ: vang11112006@gmail.com</p>
-    <p>©  2025 Trí lộ trường tồn , kiến thức phá vỡ nhận thức của bạn 
-    <p><a href="https://mail.google.com/mail/?view=cm&fs=1&to=vang11112006@gmail.com" target="_blank" rel="noopener">Liên hệ qua Gmail</a></p>
