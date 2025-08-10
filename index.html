@@ -1,112 +1,271 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trí Lộ Trường Tồn</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; background: #f4f4f4; }
-        header { background: #222; color: #fff; padding: 10px 20px; text-align: center; }
-        nav ul { list-style: none; padding: 0; display: flex; justify-content: center; background: #333; margin: 0; }
-        nav ul li { margin: 0 15px; }
-        nav ul li a { color: #fff; text-decoration: none; }
-        nav ul li a:hover { text-decoration: underline; }
-        .qr { text-align: center; margin: 20px 0; }
-        .books { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 20px; }
-        .book-item { background: #fff; padding: 15px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .book-item img { max-width: 100%; border-radius: 5px; }
-        .price { color: red; font-weight: bold; }
-        .old-price { text-decoration: line-through; color: #777; margin-right: 8px; }
-        footer { background: #333; color: #fff; text-align: center; padding: 10px; margin-top: 20px; }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Trí Lộ Trường Tồn — Cửa hàng Ebook</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<header>
-    <h1>Trí Lộ Trường Tồn</h1>
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand">
+      <img src="images/qr-code.jpg" alt="QR Code" class="qr">
+      <h1>Trí Lộ Trường Tồn</h1>
+    </div>
+    <nav class="main-nav">
+      <a href="index.html">Trang chủ</a>
+      <a href="mailto:vang11112006@gmail.com" target="_blank" rel="noopener">Liên hệ</a>
+      <button id="cartBtn" class="cart-btn">Giỏ (<span id="cart-count">0</span>)</button>
+    </nav>
+  </div>
 </header>
 
-<nav>
-    <ul>
-        <li><a href="index.html">Trang chủ</a></li>
-        <li><a href="mailto:vang11112006@gmail.com">Liên hệ</a></li>
-    </ul>
-</nav>
-
-<div class="qr">
-    <h2>Quét QR để kết nối</h2>
-    <img src="images/qr-code.jpg" alt="QR Code">
-</div>
-
-<section class="books">
-    <!-- 1 -->
-    <div class="book-item">
-        <img src="images/tuyet-mat-nhan-tinh.jpg" alt="Tuyệt Mật Nhân Tính">
-        <h3>Tuyệt Mật Nhân Tính</h3>
-        <p>Tác giả: Xuyên Thấu Nhân Tính</p>
-        <p><span class="old-price">399.000₫</span><span class="price">100.000₫</span></p>
-        <p>“Tuyệt Mật Nhân Tính” là hành trình khám phá sâu sắc vào tâm hồn con người...</p>
-    </div>
-
-    <!-- 2 -->
-    <div class="book-item">
-        <img src="images/thien-co-38-cuc.jpg" alt="Thiên Cơ 38 Cục">
-        <h3>Thiên Cơ 38 Cục</h3>
-        <p>Tác giả: Xuyên Thấu Nhân Tính</p>
-        <p><span class="old-price">399.000₫</span><span class="price">120.000₫</span></p>
-        <p>“Thiên Cơ 38 Cục” là tập hợp 38 mưu kế như những nước cờ thâm sâu...</p>
-    </div>
-
-    <!-- 3 -->
-    <div class="book-item">
-        <img src="images/tu-duy-sau-sac.jpg" alt="Tư Duy Sâu Sắc">
-        <h3>Tư Duy Sâu Sắc</h3>
-        <p>Tác giả: Xuyên Thấu Nhân Tính</p>
-        <p><span class="old-price">399.000₫</span><span class="price">100.000₫</span></p>
-        <p>Ebook “Tư Duy Sâu Sắc” mở ra những góc nhìn sâu lắng về bản chất con người...</p>
-    </div>
-
-    <!-- 4 -->
-    <div class="book-item">
-        <img src="images/logic-nguoi-ngheo.jpg" alt="Logic Người Nghèo">
-        <h3>Logic Người Nghèo</h3>
-        <p>Tác giả: Xuyên Thấu Nhân Tính</p>
-        <p><span class="old-price">399.000₫</span><span class="price">45.000₫</span></p>
-        <p>“Logic Người Nghèo” phân tích sự khác biệt tư duy giữa người giàu và người nghèo...</p>
-    </div>
-
-    <!-- 5 -->
-    <div class="book-item">
-        <img src="images/nhan-tinh-den-trang.jpg" alt="Nhân Tính Đen Trắng">
-        <h3>Nhân Tính Đen Trắng</h3>
-        <p>Tác giả: Xuyên Thấu Nhân Tính</p>
-        <p><span class="old-price">399.000₫</span><span class="price">80.000₫</span></p>
-        <p>“Nhân Tính Đen Trắng” đi sâu vào mối quan hệ giữa mặt sáng và tối của con người...</p>
-    </div>
-
-    <!-- 6 -->
-    <div class="book-item">
-        <img src="images/kiem-dai.jpg" alt="Kiếm Đại">
-        <h3>Kiếm Đại</h3>
-        <p>Tác giả: Xuyên Thấu Nhân Tính</p>
-        <p><span class="old-price">399.000₫</span><span class="price">80.000₫</span></p>
-        <p>Tổng hợp hệ thống lý thuyết và triết lý sống sâu sắc của Kiếm Đại...</p>
-    </div>
-
-    <!-- 7 -->
-    <div class="book-item">
-        <img src="images/nhan-tinh-xa-giao.jpg" alt="Nhân Tính Xã Giao – Tư Duy Thủ Sách">
-        <h3>Nhân Tính Xã Giao – Tư Duy Thủ Sách</h3>
-        <p>Tác giả: Xuyên Thấu Nhân Tính</p>
-        <p><span class="old-price">399.000₫</span><span class="price">80.000₫</span></p>
-        <p>Cuốn sách về nghệ thuật ứng xử và chiến lược tư duy trong xã hội hiện đại...</p>
-    </div>
+<section class="intro container">
+<p class="lead">Những gì lan truyền trên Internet chỉ là một hạt bụi nhỏ trên đỉnh tảng băng chìm. Nếu không có ý thức tìm tòi, một người có thể sống cả đời mà chẳng bao giờ chạm đến những tầng tri thức sâu sắc và khác biệt.
+<br><br>
+Những tư tưởng tinh hoa, kiến thức uyên thâm, tư duy đỉnh cao cùng những bí ẩn cổ xưa không bao giờ dễ dàng lộ diện. Chúng ẩn mình trong những “hội nhóm kín”, xa rời ánh nhìn của số đông và càng không xuất hiện trên các nền tảng đại chúng.
+<br><br>
+Xã hội giống như một Ma Trận đã được lập trình sẵn – bạn sẽ chọn viên thuốc đỏ để thức tỉnh, hay viên thuốc xanh để tiếp tục giấc mộng? Mỗi người đều có một lựa chọn, thậm chí có những người còn không được phép chọn.
+<br><br>
+Vậy nên, việc bạn và tôi gặp nhau hôm nay có lẽ không phải ngẫu nhiên. Tôi tin rằng, chút “Đầu tư kiến thức” bạn trao đi hôm nay sẽ trở thành hạt giống, nảy nở thành giá trị gấp trăm, gấp ngàn lần trong tương lai!</p>
 </section>
 
-<footer>
-    <p>Liên hệ: <a href="mailto:vang11112006@gmail.com" style="color:white;">vang11112006@gmail.com</a></p>
+<!-- Popup promotion -->
+<div id="promo" class="promo">
+  <div class="promo-inner">
+    <button id="promoClose" class="promo-close">&times;</button>
+    <h2>Giảm 70% trong vòng 3 tháng đầu vừa tạo shop!</h2>
+    <p>Ưu đãi đặc biệt cho khách hàng đầu tiên — áp dụng cho nhiều đầu sách.</p>
+    <button id="promoShop" class="btn primary">Mua ngay</button>
+  </div>
+</div>
+
+<main class="container">
+  <section class="books-grid" id="booksGrid">
+    <!-- Book items inserted by JS -->
+  </section>
+</main>
+
+<!-- Cart modal -->
+<div id="cartModal" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" id="closeCart">&times;</button>
+    <h3>Giỏ hàng</h3>
+    <div id="cartItems"></div>
+    <div class="cart-summary">
+      <div>Tổng: <strong id="cartTotal">0₫</strong></div>
+      <button id="checkoutBtn" class="btn primary">Đặt mua</button>
+    </div>
+  </div>
+</div>
+
+<!-- Checkout modal / form -->
+<div id="checkoutModal" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" id="closeCheckout">&times;</button>
+    <h3>Form đặt hàng</h3>
+    <!-- Replace the action in the form below with your Formspree form endpoint.
+         To get the endpoint: sign up on https://formspree.io, create a form and copy the POST URL like:
+         https://formspree.io/f/your_form_id  -->
+    <form id="orderForm" method="POST" action="https://formspree.io/f/your_form_id">
+      <input type="hidden" name="order_details" id="order_details">
+      <label>Họ và tên<br><input name="name" required></label><br>
+      <label>Email<br><input name="email" type="email" required></label><br>
+      <label>Điện thoại<br><input name="phone" required></label><br>
+      <label>Địa chỉ<br><input name="address" required></label><br>
+      <label>Ghi chú<br><textarea name="note"></textarea></label><br>
+      <div style="margin-top:12px;">
+        <button type="submit" class="btn primary">Gửi đơn</button>
+        <button type="button" id="cancelOrder" class="btn secondary">Huỷ</button>
+      </div>
+    </form>
+    <p class="small">Khi gửi lần đầu Formspree sẽ yêu cầu bạn xác nhận email để nhận đơn.</p>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2025 Trí Lộ Trường Tồn — Liên hệ: <a href="mailto:vang11112006@gmail.com">vang11112006@gmail.com</a></p>
+  </div>
 </footer>
 
+<script>
+// Data for 7 books
+const books = [
+  {
+    id: "b1",
+    title: "Tuyệt Mật Nhân Tính",
+    author: "Xuyên Thấu Nhân Tính",
+    priceOrig: 399000,
+    price: 0,
+    note: "🎁 Sách tặng",
+    img: "images/tuyet-mat-nhan-tinh.jpg"
+  },
+  {
+    id: "b2",
+    title: "Thiên Cơ 38 Cục",
+    author: "Xuyên Thấu Nhân Tính",
+    priceOrig: 560000,
+    price: 170000,
+    img: "images/thien-co-38-cuc.jpg"
+  },
+  {
+    id: "b3",
+    title: "Tư Duy Sâu Sắc",
+    author: "Xuyên Thấu Nhân Tính",
+    priceOrig: 560000,
+    price: 150000,
+    img: "images/tu-duy-sau-sac.jpg"
+  },
+  {
+    id: "b4",
+    title: "Logic Người Nghèo",
+    author: "Xuyên Thấu Nhân Tính",
+    priceOrig: 560000,
+    price: 170000,
+    img: "images/logic-nguoi-ngheo.jpg"
+  },
+  {
+    id: "b5",
+    title: "Nhân Tính Đen Trắng",
+    author: "Xuyên Thấu Nhân Tính",
+    priceOrig: 350000,
+    price: 90000,
+    img: "images/nhan-tinh-den-trang.jpg"
+  },
+  {
+    id: "b6",
+    title: "Kiếm Đại",
+    author: "Xuyên Thấu Nhân Tính",
+    priceOrig: 250000,
+    price: 90000,
+    img: "images/kiem-dai.jpg"
+  },
+  {
+    id: "b7",
+    title: "Nhân Tính Xã Giao – Tư Duy Thủ Sách",
+    author: "Xuyên Thấu Nhân Tính",
+    priceOrig: 560000,
+    price: 110000,
+    img: "images/nhan-tinh-xa-giao.jpg"
+  }
+];
+
+// Utilities
+function formatVND(n){ if(n===0) return "Miễn phí"; return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "₫"; }
+
+// Render books
+const grid = document.getElementById('booksGrid');
+books.forEach(b=>{
+  const div = document.createElement('div');
+  div.className = 'card';
+  div.innerHTML = `
+    <div class="card-thumb" style="background-image:url('${b.img}')"></div>
+    <div class="card-body">
+      <h3>${b.title}</h3>
+      <p class="meta">Tác giả: ${b.author}</p>
+      <p class="price-row">
+        <span class="old">${formatVND(b.priceOrig)}</span>
+        <span class="new">${b.price===0? (b.note||'Miễn phí') : formatVND(b.price)}</span>
+      </p>
+      <div class="card-actions">
+        <button class="btn add-to-cart" data-id="${b.id}">Thêm vào giỏ</button>
+        <button class="btn secondary view-detail" data-id="${b.id}">Xem</button>
+      </div>
+    </div>
+  `;
+  grid.appendChild(div);
+});
+
+// Cart (LocalStorage)
+const CART_KEY = 'trilot_cart_v1';
+function loadCart(){ try{ return JSON.parse(localStorage.getItem(CART_KEY))||[] }catch(e){return[]} }
+function saveCart(c){ localStorage.setItem(CART_KEY, JSON.stringify(c)); updateCartCount(); }
+function updateCartCount(){ const c = loadCart(); document.getElementById('cart-count').textContent = c.reduce((s,i)=>s+i.qty,0); }
+function addToCart(id){ const c = loadCart(); const item = c.find(x=>x.id===id); if(item) item.qty++; else c.push({id, qty:1}); saveCart(c); alert('Đã thêm vào giỏ'); }
+document.addEventListener('click', e=>{
+  if(e.target.matches('.add-to-cart')){ addToCart(e.target.dataset.id); }
+});
+
+// Show cart modal
+const cartBtn = document.getElementById('cartBtn');
+const cartModal = document.getElementById('cartModal');
+const checkoutModal = document.getElementById('checkoutModal');
+cartBtn.addEventListener('click', ()=>{ renderCartItems(); cartModal.style.display='block'; });
+document.getElementById('closeCart').addEventListener('click', ()=> cartModal.style.display='none');
+
+function renderCartItems(){
+  const container = document.getElementById('cartItems');
+  const c = loadCart();
+  if(c.length===0){ container.innerHTML = '<p>Giỏ hàng trống</p>'; document.getElementById('cartTotal').textContent='0₫'; return; }
+  let html='';
+  let total=0;
+  c.forEach(ci=>{
+    const book = books.find(b=>b.id===ci.id);
+    const price = book.price || 0;
+    const line = price * ci.qty;
+    total += line;
+    html += `<div class="cart-row"><div class="cart-row-left"><img src="${book.img}" alt="${book.title}"></div>
+             <div class="cart-row-right"><strong>${book.title}</strong><br>SL: ${ci.qty} — ${formatVND(price)}<br><button class="btn small dec" data-id="${ci.id}">-</button> <button class="btn small inc" data-id="${ci.id}">+</button> <button class="btn small danger remove" data-id="${ci.id}">Xóa</button></div></div>`;
+  });
+  container.innerHTML = html;
+  document.getElementById('cartTotal').textContent = formatVND(total);
+}
+
+// cart item buttons
+document.addEventListener('click', e=>{
+  if(e.target.matches('.inc')){ changeQty(e.target.dataset.id, 1); renderCartItems(); saveCart(loadCart()); }
+  if(e.target.matches('.dec')){ changeQty(e.target.dataset.id, -1); renderCartItems(); saveCart(loadCart()); }
+  if(e.target.matches('.remove')){ removeItem(e.target.dataset.id); renderCartItems(); saveCart(loadCart()); }
+});
+
+function changeQty(id, delta){
+  const c = loadCart(); const it = c.find(x=>x.id===id); if(!it) return; it.qty += delta; if(it.qty<1) it.qty=1; saveCart(c);
+}
+function removeItem(id){ let c = loadCart(); c = c.filter(x=>x.id!==id); saveCart(c); renderCartItems(); }
+
+// Checkout flow
+document.getElementById('checkoutBtn').addEventListener('click', ()=>{
+  const c = loadCart(); if(c.length===0){ alert('Giỏ hàng trống'); return; }
+  // prepare order details text
+  let lines = [];
+  let total=0;
+  c.forEach(ci=>{ const b = books.find(x=>x.id===ci.id); const p = b.price||0; lines.push(`${b.title} x${ci.qty} — ${formatVND(p)}`); total += p*ci.qty; });
+  lines.push('Tổng: ' + formatVND(total));
+  document.getElementById('order_details').value = lines.join('\n');
+  cartModal.style.display='none'; checkoutModal.style.display='block';
+});
+document.getElementById('closeCheckout').addEventListener('click', ()=> checkoutModal.style.display='none');
+document.getElementById('cancelOrder').addEventListener('click', ()=> checkoutModal.style.display='none');
+
+// Submit form - uses Formspree action attribute. No extra code needed; but we can show a message.
+document.getElementById('orderForm').addEventListener('submit', function(e){
+  // form will POST to Formspree; allow default behaviour.
+  // Optionally, clear cart after submit:
+  localStorage.removeItem(CART_KEY);
+  setTimeout(()=>{ alert('Đơn đặt đã gửi. Vui lòng kiểm tra email để xác nhận Formspree.'); updateCartCount(); }, 1000);
+});
+
+// Promo popup logic (show once per browser)
+const promo = document.getElementById('promo');
+const promoClose = document.getElementById('promoClose');
+const promoShop = document.getElementById('promoShop');
+if(!localStorage.getItem('promo_seen')){ promo.style.display='flex'; localStorage.setItem('promo_seen','1'); }
+promoClose.addEventListener('click', ()=> promo.style.display='none');
+promoShop.addEventListener('click', ()=>{ promo.style.display='none'; document.getElementById('cartBtn').click(); });
+
+// simple "view" details (alert brief info)
+document.addEventListener('click', e=>{
+  if(e.target.matches('.view-detail')){
+    const id = e.target.dataset.id;
+    const b = books.find(x=>x.id===id);
+    alert(b.title + '\n\nTác giả: ' + b.author + '\nGiá: ' + (b.price===0? 'Miễn phí' : formatVND(b.price)));
+  }
+});
+
+// init
+updateCartCount();
+</script>
 </body>
 </html>
