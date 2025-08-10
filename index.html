@@ -7,85 +7,6 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div id="bookModal">
-  <div id="bookContent">
-    <button id="closeBtn">&times;</button>
-    <h2 id="bookTitle"></h2>
-    <img id="bookImage" src="" alt="Ảnh sách" />
-    <div id="bookText"></div>
-  </div>
-</div>
-
-<script>
-  const books = {
-    book1: {
-      title: "Tuyệt Mật Nhân Tính",
-      image: "tuyet-mat-nhan-tinh.jpg",
-      content: "<p>Đây là nội dung chi tiết cuốn Tuyệt Mật Nhân Tính. Bạn có thể thêm các đoạn văn, mô tả, hoặc trích dẫn ở đây.</p>"
-    },
-    book2: {
-      title: "Nhân Tính Đen Trắng",
-      image: "nhan-tinh-den-trang.jpg",
-      content: "<p>Nội dung chi tiết cuốn Nhân Tính Đen Trắng sẽ xuất hiện tại đây.</p>"
-    },
-    book3: {
-      title: "Kiếm Đại",
-      image: "kiem-dai.jpg",
-      content: "<p>Thông tin về cuốn Kiếm Đại sẽ được hiển thị trong phần này.</p>"
-    },
-    book4: {
-      title: "Nhân Tính Xã Giao",
-      image: "nhan-tinh-xa-giao.jpg",
-      content: "<p>Phần mô tả chi tiết cho cuốn Nhân Tính Xã Giao.</p>"
-    },
-    book5: {
-      title: "Thiên Cơ 38 Cục",
-      image: "thien-co-38-cuc.jpg",
-      content: "<p>Nội dung cuốn Thiên Cơ 38 Cục được trình bày ở đây.</p>"
-    },
-    book6: {
-      title: "Logic Người Nghèo",
-      image: "logic-nguoi-ngheo.jpg",
-      content: "<p>Phần nội dung dành cho cuốn Logic Người Nghèo.</p>"
-    },
-    book7: {
-      title: "Tư Duy Sâu Sắc",
-      image: "tu-duy-sau-sac.jpg",
-      content: "<p>Thông tin chi tiết cuốn Tư Duy Sâu Sắc.</p>"
-    }
-  };
-
-  const modal = document.getElementById('bookModal');
-  const bookTitle = document.getElementById('bookTitle');
-  const bookImage = document.getElementById('bookImage');
-  const bookText = document.getElementById('bookText');
-  const closeBtn = document.getElementById('closeBtn');
-
-  function showBook(bookId) {
-    const book = books[bookId];
-    bookTitle.textContent = book.title;
-    bookImage.src = book.image;
-    bookImage.alt = book.title;
-    bookText.innerHTML = book.content;
-    modal.classList.add('show');
-  }
-
-  closeBtn.addEventListener('click', () => {
-    modal.classList.remove('show');
-  });
-
-  window.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      modal.classList.remove('show');
-    }
-  });
-</script>
-
-</body>
-</html>
-  </style>
-</head>
-<body>
 <header class="site-header">
   <div class="container header-inner">
     <div class="brand">
@@ -163,14 +84,9 @@ Vậy nên, việc bạn và tôi gặp nhau hôm nay có lẽ không phải ng�
   <label for="product">Sản phẩm đặt hàng:</label><br>
   <select id="product" name="product" required>
     <option value="">--Chọn sản phẩm--</option>
-    <option value="sachtuyetmatnhantinh">Sách tuyệt mật nhân tính</option>
-    <option value="sachnhantinhdentrang">Sách nhân tính đen trắng</option>
-    <option value="sachthienco38cuc">Sách thiên cơ 38 cục</option>
-    <option value="sachnhantinhxagiao">Sách nhân tính xã giao</option>
-    <option value="sachlogicnguoingheo">Sách logic người nghèo</option>
-    <option value="sachtuduysausac">Sách tư duy sâu sắc</option>
-    <option value="sachkiendai">Sách kiếm đại</option>
-    option>
+    <option value="sach1">Sách 1</option>
+    <option value="sach2">Sách 2</option>
+    <option value="sach3">Sách 3</option>
   </select><br><br>
 
   <label for="quantity">Số lượng:</label><br>
@@ -189,6 +105,7 @@ Vậy nên, việc bạn và tôi gặp nhau hôm nay có lẽ không phải ng�
       <label>Họ và tên<br><input name="name" required></label><br>
       <label>Email<br><input name="email" type="email" required></label><br>
       <label>Điện thoại<br><input name="phone" required></label><br>
+      <label>Địa chỉ<br><input name="address" required></label><br>
       <label>Ghi chú<br><textarea name="note"></textarea></label><br>
       <div style="margin-top:12px;">
         <button type="submit" class="btn primary">Gửi đơn</button>
