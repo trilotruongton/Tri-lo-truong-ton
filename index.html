@@ -1,6 +1,49 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thư viện ảnh</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .gallery img {
+            max-width: 250px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+        .gallery img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Bộ sưu tập ảnh</h1>
+    <div class="gallery">
+    <img src="images/tuyet-mat-nhan-tinh.jpg" alt="Tuyệt mật nhân tính">
+<img src="images/nhan-tinh-den-trang.jpg" alt="Nhân tính đen trắng">
+<img src="images/kiem-dai.jpg" alt="Kiếm đại">
+<img src="images/tu-duy-logic.jpg" alt="Tư duy logic">
+<img src="images/logic-suy-nghi-cua-nguoi-ngheo.jpg" alt="Logic suy nghĩ của người nghèo">
+<img src="images/nhan-tinh-xa-giao.jpg" alt="Nhân tính xã giao">
+<img src="images/thien-co-38-cuc.jpg" alt="Thiên cơ 38 cục">
+    </div>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Trí Lộ Trường Tồn — Cửa hàng Ebook</title>
