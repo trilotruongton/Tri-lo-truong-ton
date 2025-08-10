@@ -113,6 +113,87 @@ Vậy nên, việc bạn và tôi gặp nhau hôm nay có lẽ không phải ng�
         <button type="button" id="cancelOrder" class="btn secondary">Huỷ</button>
       </div>
     </form>
+    <h2>Chọn sách để thêm vào giỏ hàng</h2>
+
+<form id="cartForm">
+  <label for="bookSelect">Chọn sách:</label>
+  <select id="bookSelect" name="bookSelect" required>
+    <option value="">-- Chọn một cuốn sách --</option>
+    <option value="tuyet-mat-nhan-tinh">Tuyệt Mật Nhân Tính</option>
+    <option value="nhan-tinh-den-trang">Nhân Tính Đen Trắng</option>
+    <option value="kiem-dai">Kiếm Đại</option>
+    <option value="nhan-tinh-xa-giao">Nhân Tính Xã Giao</option>
+    <option value="thien-co-38-cuc">Thiên Cơ 38 Cục</option>
+    <option value="logic-nguoi-ngheo">Logic Người Nghèo</option>
+    <option value="tu-duy-sau-sac">Tư Duy Sâu Sắc</option>
+  </select>
+
+  <label for="quantity">Số lượng:</label>
+  <input type="number" id="quantity" name="quantity" min="1" value="1" required />
+
+  <button type="submit">Thêm vào giỏ hàng</button>
+</form>
+
+<h3>Giỏ hàng của bạn:</h3>
+<ul id="cartList">
+  <!-- Sản phẩm thêm vào sẽ hiện ở đây -->
+</ul>
+
+<script>
+  const cartForm = document.getElementById('cartForm');
+  const cartList = document.getElementById('cartList');
+
+  // Tên sách để hiển thị theo value
+  const bookNames = {
+    "tuyet-mat-nhan-tinh": "Tuyệt Mật Nhân Tính",
+    "nhan-tinh-den-trang": "Nhân Tính Đen Trắng",
+    "kiem-dai": "Kiếm Đại",
+    "nhan-tinh-xa-giao": "Nhân Tính Xã Giao",
+    "thien-co-38-cuc": "Thiên Cơ 38 Cục",
+    "logic-nguoi-ngheo": "Logic Người Nghèo",
+    "tu-duy-sau-sac": "Tư Duy Sâu Sắc"
+  };
+
+  // Mảng lưu sản phẩm trong giỏ
+  let cart = [];
+
+  cartForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const bookValue = this.bookSelect.value;
+    const quantity = parseInt(this.quantity.value);
+
+    if(!bookValue) {
+      alert('Vui lòng chọn một cuốn sách');
+      return;
+    }
+    if(quantity < 1) {
+      alert('Số lượng phải lớn hơn hoặc bằng 1');
+      return;
+    }
+
+    // Kiểm tra xem sách đã có trong giỏ chưa
+    const existing = cart.find(item => item.book === bookValue);
+    if(existing) {
+      existing.quantity += quantity;
+    } else {
+      cart.push({ book: bookValue, quantity: quantity });
+    }
+
+    renderCart();
+    this.reset();
+  });
+
+  function renderCart() {
+    cartList.innerHTML = '';
+
+    cart.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = `${bookNames[item.book]} - Số lượng: ${item.quantity}`;
+      cartList.appendChild(li);
+    });
+  }
+</script>
     <p class="small">Khi gửi lần đầu Formspree sẽ yêu cầu bạn xác nhận email để nhận đơn.</p>
   </div>
 </div>
