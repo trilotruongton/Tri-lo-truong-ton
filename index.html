@@ -8,6 +8,7 @@
 </head>
 <body>
 <header class="site-header">
+  <div class="cart-icon" id="cart-icon">🛒 Giỏ hàng <span id="cart-count">0</span></div>
   <div class="container header-inner">
     <div class="brand">
       <img src="images/qr-code.jpg" alt="QR Code" class="qr">
@@ -127,46 +128,10 @@ Vậy nên, việc bạn và tôi gặp nhau hôm nay có lẽ không phải ng�
     <option value="logic-nguoi-ngheo">Logic Người Nghèo</option>
     <option value="tu-duy-sau-sac">Tư Duy Sâu Sắc</option>
   </select>
+  
+<input type="number" id="quantity" name="quantity" min="1" value="1" required />
 
-  <label for="quantity">Số lượng:</label>
-  <input type="number" id="quantity" name="quantity" min="1" value="1" required />
-
-  <button type="submit">Thêm vào giỏ hàng</button>
-</form>
-<div class="book-item">
-  <span>Tuyệt mật nhân tính</span>
-  <button onclick="addToCart('Tuyệt mật nhân tính')">Thêm vào giỏ hàng</button>
-</div>
-
-<div class="book-item">
-  <span>Nhân tính đen trắng</span>
-  <button onclick="addToCart('Nhân tính đen trắng')">Thêm vào giỏ hàng</button>
-</div>
-
-<div class="book-item">
-  <span>Tư duy sâu sắc</span>
-  <button onclick="addToCart('Tư duy sâu sắc')">Thêm vào giỏ hàng</button>
-</div>
-
-<div class="book-item">
-  <span>Thiên cơ 38 cục</span>
-  <button onclick="addToCart('Thiên cơ 38 cục')">Thêm vào giỏ hàng</button>
-</div>
-
-<div class="book-item">
-  <span>Kiếm đại</span>
-  <button onclick="addToCart('Kiếm đại')">Thêm vào giỏ hàng</button>
-</div>
-
-<div class="book-item">
-  <span>Nhân tính xã giao</span>
-  <button onclick="addToCart('Nhân tính xã giao')">Thêm vào giỏ hàng</button>
-</div>
-
-<div class="book-item">
-  <span>Logic người nghèo</span>
-  <button onclick="addToCart('Logic người nghèo')">Thêm vào giỏ hàng</button>
-</div>
+<button type="submit">Thêm vào giỏ hàng</button>
 <h3>Giỏ hàng của bạn:</h3>
 <ul id="cartList">
   <!-- Sản phẩm thêm vào sẽ hiện ở đây -->
@@ -197,7 +162,7 @@ Vậy nên, việc bạn và tôi gặp nhau hôm nay có lẽ không phải ng�
     const quantity = parseInt(this.quantity.value);
 
     if(!bookValue) {
-      alert('Vui lòng chọn một cuốn sách');
+      alert('Vui lòng chọn nhiều cuốn sách');
       return;
     }
     if(quantity < 1) {
@@ -414,5 +379,209 @@ document.addEventListener('click', e=>{
 // init
 updateCartCount();
 </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Giỏ hàng kiểu thogenz.com</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 20px; }
+  .header {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+  }
+  .cart-icon {
+    position: relative; cursor: pointer; font-size: 20px;
+  }
+  .cart-count {
+    background: red; color: white; border-radius: 50%; padding: 2px 7px; font-size: 12px;
+    position: absolute; top: -8px; right: -8px;
+  }
+  .cart-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 35px;
+    width: 350px;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    border-radius: 5px;
+    z-index: 1000;
+  }
+  .cart-dropdown.active { display: block; }
+  .cart-header {
+    padding: 10px; border-bottom: 1px solid #eee; font-weight: bold;
+  }
+  .cart-item {
+    display: flex; justify-content: space-between; padding: 10px; border-bottom: 1px solid #f0f0f0;
+    align-items: center;
+  }
+  .cart-item-name {
+    flex: 1;
+  }
+  .cart-item-qty {
+    display: flex; align-items: center;
+  }
+  .cart-item-qty button {
+    width: 25px; height: 25px; border: 1px solid #ccc; background: #fff; cursor: pointer;
+  }
+  .cart-item-qty span {
+    margin: 0 8px;
+  }
+  .cart-item-price {
+    width: 80px; text-align: right; font-weight: bold;
+  }
+  .cart-item-remove {
+    margin-left: 10px; color: #888; cursor: pointer; font-weight: bold;
+  }
+  .cart-footer {
+    padding: 10px; font-weight: bold; text-align: right;
+  }
+  .book-list {
+    max-width: 400px;
+  }
+  .book-item {
+    margin-bottom: 15px;
+  }
+  .book-item button {
+    margin-left: 10px; padding: 5px 10px; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h2>Danh sách sách</h2>
+  <div class="cart-icon" id="cart-icon">
+    🛒 Giỏ hàng <span class="cart-count" id="cart-count">0</span>
+  </div>
+</div>
+
+<div class="book-list" id="book-list">
+  <div class="book-item">
+    Tuyệt mật nhân tính
+    <button onclick="addToCart('Tuyệt mật nhân tính')">Thêm vào giỏ hàng</button>
+  </div>
+  <div class="book-item">
+    Nhân tính đen trắng
+    <button onclick="addToCart('Nhân tính đen trắng')">Thêm vào giỏ hàng</button>
+  </div>
+  <div class="book-item">
+    Tư duy sâu sắc
+    <button onclick="addToCart('Tư duy sâu sắc')">Thêm vào giỏ hàng</button>
+  </div>
+  <div class="book-item">
+    Thiên cơ 38 cục
+    <button onclick="addToCart('Thiên cơ 38 cục')">Thêm vào giỏ hàng</button>
+  </div>
+  <div class="book-item">
+    Kiếm đại
+    <button onclick="addToCart('Kiếm đại')">Thêm vào giỏ hàng</button>
+  </div>
+  <div class="book-item">
+    Nhân tính xã giao
+    <button onclick="addToCart('Nhân tính xã giao')">Thêm vào giỏ hàng</button>
+  </div>
+  <div class="book-item">
+    Logic người nghèo
+    <button onclick="addToCart('Logic người nghèo')">Thêm vào giỏ hàng</button>
+  </div>
+</div>
+
+<!-- Giỏ hàng dropdown -->
+<div class="cart-dropdown" id="cart-dropdown">
+  <div class="cart-header">Giỏ hàng của bạn</div>
+  <div id="cart-items"></div>
+  <div class="cart-footer">
+    Tổng tiền: <span id="cart-total">0 đ</span>
+  </div>
+</div>
+
+<script>
+  // Dữ liệu giá sách (bạn sửa giá theo đúng ý bạn)
+  const prices = {
+    'Tuyệt mật nhân tính': 120000,
+    'Nhân tính đen trắng': 150000,
+    'Tư duy sâu sắc': 180000,
+    'Thiên cơ 38 cục': 200000,
+    'Kiếm đại': 130000,
+    'Nhân tính xã giao': 160000,
+    'Logic người nghèo': 140000,
+  };
+
+  const cart = {};
+
+  const cartIcon = document.getElementById('cart-icon');
+  const cartDropdown = document.getElementById('cart-dropdown');
+  const cartCount = document.getElementById('cart-count');
+  const cartItems = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+
+  cartIcon.addEventListener('click', () => {
+    cartDropdown.classList.toggle('active');
+  });
+
+  function addToCart(bookName) {
+    if (cart[bookName]) {
+      cart[bookName]++;
+    } else {
+      cart[bookName] = 1;
+    }
+    updateCartUI();
+  }
+
+  function removeFromCart(bookName) {
+    delete cart[bookName];
+    updateCartUI();
+  }
+
+  function changeQuantity(bookName, delta) {
+    if (!cart[bookName]) return;
+    cart[bookName] += delta;
+    if (cart[bookName] <= 0) {
+      removeFromCart(bookName);
+    } else {
+      updateCartUI();
+    }
+  }
+
+  function updateCartUI() {
+    let totalCount = 0;
+    let totalPrice = 0;
+    cartItems.innerHTML = '';
+
+    for (const book in cart) {
+      const qty = cart[book];
+      const price = prices[book];
+      totalCount += qty;
+      totalPrice += price * qty;
+
+      const itemDiv = document.createElement('div');
+      itemDiv.className = 'cart-item';
+      itemDiv.innerHTML = `
+        <div class="cart-item-name">${book}</div>
+        <div class="cart-item-qty">
+          <button onclick="changeQuantity('${book}', -1)">-</button>
+          <span>${qty}</span>
+          <button onclick="changeQuantity('${book}', 1)">+</button>
+        </div>
+        <div class="cart-item-price">${(price * qty).toLocaleString()} đ</div>
+        <div class="cart-item-remove" onclick="removeFromCart('${book}')">×</div>
+      `;
+      cartItems.appendChild(itemDiv);
+    }
+
+    cartCount.textContent = totalCount;
+    cartTotal.textContent = totalPrice.toLocaleString() + ' đ';
+
+    if (totalCount === 0) {
+      cartItems.innerHTML = '<div style="padding:10px; text-align:center; color:#999;">Giỏ hàng đang trống</div>';
+      cartTotal.textContent = '0 đ';
+    }
+  }
+</script>
+
 </body>
 </html>
