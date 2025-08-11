@@ -16,38 +16,18 @@
     <nav class="main-nav">
       <a href="index.html">Trang chủ</a>
       <a href="mailto:vang11112006@gmail.com" target="_blank" rel="noopener">Liên hệ</a>
-      <button id="cartBtn" class="cart-btn">Giỏ (<span id="cart-count">0</span>)</button>
+      <button id="cartBtn" class="btn primary">Giỏ (<span id="cart-count">0</span>)</button>
     </nav>
   </div>
 </header>
 
-<section class="intro container">
-<p class="lead">Những gì lan truyền trên Internet chỉ là một hạt bụi nhỏ trên đỉnh tảng băng chìm. Nếu không có ý thức tìm tòi, một người có thể sống cả đời mà chẳng bao giờ chạm đến những tầng tri thức sâu sắc và khác biệt.
-<br><br>
-Những tư tưởng tinh hoa, kiến thức uyên thâm, tư duy đỉnh cao cùng những bí ẩn cổ xưa không bao giờ dễ dàng lộ diện. Chúng ẩn mình trong những “hội nhóm kín”, xa rời ánh nhìn của số đông và càng không xuất hiện trên các nền tảng đại chúng.
-<br><br>
-Xã hội giống như một Ma Trận đã được lập trình sẵn – bạn sẽ chọn viên thuốc đỏ để thức tỉnh, hay viên thuốc xanh để tiếp tục giấc mộng? Mỗi người đều có một lựa chọn, thậm chí có những người còn không được phép chọn.
-<br><br>
-Vậy nên, việc bạn và tôi gặp nhau hôm nay có lẽ không phải ngẫu nhiên. Tôi tin rằng, chút “Đầu tư kiến thức” bạn trao đi hôm nay sẽ trở thành hạt giống, nảy nở thành giá trị gấp trăm, gấp ngàn lần trong tương lai!</p>
-</section>
-
-<!-- Popup promotion -->
-<div id="promo" class="promo">
-  <div class="promo-inner">
-    <button id="promoClose" class="promo-close">&times;</button>
-    <h2>Giảm 70% trong vòng 3 tháng đầu vừa tạo shop!</h2>
-    <p>Ưu đãi đặc biệt cho khách hàng đầu tiên — áp dụng cho nhiều đầu sách.</p>
-    <button id="promoShop" class="btn primary">Mua ngay</button>
-  </div>
-</div>
-
 <main class="container">
   <section class="books-grid" id="booksGrid">
-    <!-- Book items inserted by JS -->
+    <!-- Sách sẽ được JS render -->
   </section>
 </main>
 
-<!-- Cart modal -->
+<!-- Modal giỏ hàng -->
 <div id="cartModal" class="modal">
   <div class="modal-content">
     <button class="modal-close" id="closeCart">&times;</button>
@@ -60,12 +40,13 @@ Vậy nên, việc bạn và tôi gặp nhau hôm nay có lẽ không phải ng�
   </div>
 </div>
 
-<!-- Checkout modal / form -->
+<!-- Modal đặt hàng -->
 <div id="checkoutModal" class="modal">
   <div class="modal-content">
     <button class="modal-close" id="closeCheckout">&times;</button>
     <h3>Form đặt hàng</h3>
     <form id="orderForm" action="https://formsubmit.co/vang11112006@gmail.com" method="POST">
+      
       <label for="name">Họ và tên:</label><br>
       <input type="text" id="name" name="name" required><br><br>
 
@@ -75,24 +56,11 @@ Vậy nên, việc bạn và tôi gặp nhau hôm nay có lẽ không phải ng�
       <label for="phone">Số điện thoại:</label><br>
       <input type="tel" id="phone" name="phone" required><br><br>
 
-      <label for="product">Sản phẩm đặt hàng:</label><br>
-      <select id="product" name="product" required>
-        <option value="">--Chọn sản phẩm--</option>
-        <option value="sachtuyetmatnhantinh">Sách tuyệt mật nhân tính</option>
-        <option value="sachnhantinhdentrang">Sách nhân tính đen trắng</option>
-        <option value="sachthienco38cuc">Sách thiên cơ 38 cục</option>
-        <option value="sachnhantinhxagiao">Sách nhân tính xã giao</option>
-        <option value="sachlogicnguoingheo">Sách logic người nghèo</option>
-        <option value="sachtuduysausac">Sách tư duy sâu sắc</option>
-        <option value="sachkiendai">Sách kiếm đại</option>
-      </select><br><br>
-
-      <label for="quantity">Số lượng:</label><br>
-      <input type="number" id="quantity" name="quantity" min="1" value="1" required><br><br>
+      <!-- Sản phẩm sẽ tự điền từ JS -->
+      <input type="hidden" name="order_details" id="order_details">
 
       <input type="hidden" name="_next" value="https://trilotruongton.github.io/Tri-lo-truong-ton/thank-you.html">
       <input type="hidden" name="_captcha" value="true">
-      <input type="hidden" name="order_details" id="order_details">
 
       <button type="submit" class="btn primary">Gửi đơn</button>
       <button type="button" id="cancelOrder" class="btn secondary">Huỷ</button>
@@ -102,117 +70,106 @@ Vậy nên, việc bạn và tôi gặp nhau hôm nay có lẽ không phải ng�
 
 <footer class="site-footer">
   <div class="container">
-    <p>© 2025 Trí Lộ Trường Tồn — Liên hệ: <a href="mailto:vang11112006@gmail.com">vang11112006@gmail.com</a></p>
+    <p>© 2025 Trí Lộ Trường Tồn</p>
   </div>
 </footer>
 
 <script>
-// Data for 7 books
 const books = [
-  { id: "b1", title: "Tuyệt Mật Nhân Tính", author: "Xuyên Thấu Nhân Tính", priceOrig: 399000, price: 0, note: "🎁 Sách tặng", img: "images/tuyet-mat-nhan-tinh.jpg" },
-  { id: "b2", title: "Thiên Cơ 38 Cục", author: "Xuyên Thấu Nhân Tính", priceOrig: 560000, price: 170000, img: "images/thien-co-38-cuc.jpg" },
-  { id: "b3", title: "Tư Duy Sâu Sắc", author: "Xuyên Thấu Nhân Tính", priceOrig: 560000, price: 150000, img: "images/tu-duy-sau-sac.jpg" },
-  { id: "b4", title: "Logic Người Nghèo", author: "Xuyên Thấu Nhân Tính", priceOrig: 560000, price: 170000, img: "images/logic-nguoi-ngheo.jpg" },
-  { id: "b5", title: "Nhân Tính Đen Trắng", author: "Xuyên Thấu Nhân Tính", priceOrig: 350000, price: 90000, img: "images/nhan-tinh-den-trang.jpg" },
-  { id: "b6", title: "Kiếm Đại", author: "Xuyên Thấu Nhân Tính", priceOrig: 250000, price: 90000, img: "images/kiem-dai.jpg" },
-  { id: "b7", title: "Nhân Tính Xã Giao – Tư Duy Thủ Sách", author: "Xuyên Thấu Nhân Tính", priceOrig: 560000, price: 110000, img: "images/nhan-tinh-xa-giao.jpg" }
+  { id: "b1", title: "Tuyệt Mật Nhân Tính", price: 0, priceOrig: 399000, img: "images/tuyet-mat-nhan-tinh.jpg" },
+  { id: "b2", title: "Nhân Tính Đen Trắng", price: 90000, priceOrig: 350000, img: "images/nhan-tinh-den-trang.jpg" },
+  { id: "b3", title: "Tư Duy Sâu Sắc", price: 150000, priceOrig: 560000, img: "images/tu-duy-sau-sac.jpg" },
+  { id: "b4", title: "Thiên Cơ 38 Cục", price: 170000, priceOrig: 560000, img: "images/thien-co-38-cuc.jpg" },
+  { id: "b5", title: "Kiếm Đại", price: 90000, priceOrig: 250000, img: "images/kiem-dai.jpg" },
+  { id: "b6", title: "Nhân Tính Xã Giao", price: 110000, priceOrig: 560000, img: "images/nhan-tinh-xa-giao.jpg" },
+  { id: "b7", title: "Logic Người Nghèo", price: 170000, priceOrig: 560000, img: "images/logic-nguoi-ngheo.jpg" }
 ];
 
-function formatVND(n){ return n===0 ? "Miễn phí" : n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "₫"; }
+function formatVND(n) { return n===0 ? "Miễn phí" : n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+"₫"; }
 
 const grid = document.getElementById('booksGrid');
 books.forEach(b=>{
   const div = document.createElement('div');
-  div.className = 'card';
+  div.className = 'book-item';
   div.innerHTML = `
-    <div class="card-thumb" style="background-image:url('${b.img}')"></div>
-    <div class="card-body">
-      <h3>${b.title}</h3>
-      <p class="meta">Tác giả: ${b.author}</p>
-      <p class="price-row">
-        <span class="old">${formatVND(b.priceOrig)}</span>
-        <span class="new">${b.price===0? (b.note||'Miễn phí') : formatVND(b.price)}</span>
-      </p>
-      <div class="card-actions">
-        <button class="btn add-to-cart" data-id="${b.id}">Thêm vào giỏ</button>
-        <button class="btn secondary view-detail" data-id="${b.id}">Xem</button>
-      </div>
-    </div>
+    <img src="${b.img}" alt="${b.title}">
+    <h4>${b.title}</h4>
+    <p><del>${formatVND(b.priceOrig)}</del> <strong>${formatVND(b.price)}</strong></p>
+    <button class="add-to-cart" data-id="${b.id}">Thêm vào giỏ</button>
   `;
   grid.appendChild(div);
 });
 
-const CART_KEY = 'trilot_cart_v1';
-function loadCart(){ try{ return JSON.parse(localStorage.getItem(CART_KEY))||[] }catch(e){return[]} }
-function saveCart(c){ localStorage.setItem(CART_KEY, JSON.stringify(c)); updateCartCount(); }
-function updateCartCount(){ const c = loadCart(); document.getElementById('cart-count').textContent = c.reduce((s,i)=>s+i.qty,0); }
-function addToCart(id){ const c = loadCart(); const item = c.find(x=>x.id===id); if(item) item.qty++; else c.push({id, qty:1}); saveCart(c); alert('Đã thêm vào giỏ'); }
+const CART_KEY = "cart_data";
+function loadCart() { return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); }
+function saveCart(cart) { localStorage.setItem(CART_KEY, JSON.stringify(cart)); updateCartCount(); }
+function updateCartCount() { const c = loadCart(); document.getElementById("cart-count").textContent = c.reduce((s,i)=>s+i.qty,0); }
+function addToCart(id) {
+  const c = loadCart();
+  const it = c.find(x=>x.id===id);
+  if(it) it.qty++;
+  else c.push({id, qty:1});
+  saveCart(c);
+}
 
-document.addEventListener('click', e=>{
-  if(e.target.matches('.add-to-cart')){ addToCart(e.target.dataset.id); }
-  if(e.target.matches('.inc')){ changeQty(e.target.dataset.id, 1); renderCartItems(); saveCart(loadCart()); }
-  if(e.target.matches('.dec')){ changeQty(e.target.dataset.id, -1); renderCartItems(); saveCart(loadCart()); }
-  if(e.target.matches('.remove')){ removeItem(e.target.dataset.id); renderCartItems(); saveCart(loadCart()); }
-  if(e.target.matches('.view-detail')){
-    const id = e.target.dataset.id;
-    const b = books.find(x=>x.id===id);
-    alert(`${b.title}\n\nTác giả: ${b.author}\nGiá: ${b.price===0? 'Miễn phí' : formatVND(b.price)}`);
-  }
+document.addEventListener("click", e=>{
+  if(e.target.classList.contains("add-to-cart")) addToCart(e.target.dataset.id);
+  if(e.target.classList.contains("inc")) changeQty(e.target.dataset.id, 1);
+  if(e.target.classList.contains("dec")) changeQty(e.target.dataset.id, -1);
+  if(e.target.classList.contains("remove")) removeItem(e.target.dataset.id);
 });
-
-const cartBtn = document.getElementById('cartBtn');
-const cartModal = document.getElementById('cartModal');
-const checkoutModal = document.getElementById('checkoutModal');
-cartBtn.addEventListener('click', ()=>{ renderCartItems(); cartModal.style.display='block'; });
-document.getElementById('closeCart').addEventListener('click', ()=> cartModal.style.display='none');
 
 function renderCartItems(){
-  const container = document.getElementById('cartItems');
   const c = loadCart();
-  if(c.length===0){ container.innerHTML = '<p>Giỏ hàng trống</p>'; document.getElementById('cartTotal').textContent='0₫'; return; }
-  let html='', total=0;
+  const cont = document.getElementById("cartItems");
+  if(!c.length){ cont.innerHTML = "<p>Giỏ hàng trống</p>"; document.getElementById("cartTotal").textContent="0₫"; return; }
+  let html = "", total = 0;
   c.forEach(ci=>{
-    const book = books.find(b=>b.id===ci.id);
-    const price = book.price || 0;
-    const line = price * ci.qty;
-    total += line;
-    html += `<div class="cart-row"><div class="cart-row-left"><img src="${book.img}" alt="${book.title}"></div>
-             <div class="cart-row-right"><strong>${book.title}</strong><br>SL: ${ci.qty} — ${formatVND(price)}<br>
-             <button class="btn small dec" data-id="${ci.id}">-</button> 
-             <button class="btn small inc" data-id="${ci.id}">+</button> 
-             <button class="btn small danger remove" data-id="${ci.id}">Xóa</button></div></div>`;
+    const b = books.find(x=>x.id===ci.id);
+    const p = b.price;
+    total += p * ci.qty;
+    html += `<div><img src="${b.img}" alt=""><strong>${b.title}</strong><br>SL: ${ci.qty} — ${formatVND(p)}<br>
+      <button class="dec" data-id="${ci.id}">-</button>
+      <button class="inc" data-id="${ci.id}">+</button>
+      <button class="remove" data-id="${ci.id}">Xóa</button></div><hr>`;
   });
-  container.innerHTML = html;
-  document.getElementById('cartTotal').textContent = formatVND(total);
+  cont.innerHTML = html;
+  document.getElementById("cartTotal").textContent = formatVND(total);
 }
 
-function changeQty(id, delta){
-  const c = loadCart(); const it = c.find(x=>x.id===id); if(!it) return; it.qty += delta; if(it.qty<1) it.qty=1; saveCart(c);
+function changeQty(id, d){
+  const c = loadCart(); const it = c.find(x=>x.id===id);
+  if(it){ it.qty += d; if(it.qty<1) it.qty=1; saveCart(c); renderCartItems(); }
 }
-function removeItem(id){ let c = loadCart(); c = c.filter(x=>x.id!==id); saveCart(c); renderCartItems(); }
+function removeItem(id){
+  let c = loadCart(); c = c.filter(x=>x.id!==id); saveCart(c); renderCartItems();
+}
 
-document.getElementById('checkoutBtn').addEventListener('click', ()=>{
-  const c = loadCart(); if(c.length===0){ alert('Giỏ hàng trống'); return; }
-  let lines = [], total=0;
-  c.forEach(ci=>{ const b = books.find(x=>x.id===ci.id); const p = b.price||0; lines.push(`${b.title} x${ci.qty} — ${formatVND(p)}`); total += p*ci.qty; });
-  lines.push('Tổng: ' + formatVND(total));
-  document.getElementById('order_details').value = lines.join('\n');
-  cartModal.style.display='none'; checkoutModal.style.display='block';
-});
-document.getElementById('closeCheckout').addEventListener('click', ()=> checkoutModal.style.display='none');
-document.getElementById('cancelOrder').addEventListener('click', ()=> checkoutModal.style.display='none');
+document.getElementById("cartBtn").onclick = ()=>{ renderCartItems(); document.getElementById("cartModal").style.display="block"; };
+document.getElementById("closeCart").onclick = ()=> document.getElementById("cartModal").style.display="none";
+document.getElementById("closeCheckout").onclick = ()=> document.getElementById("checkoutModal").style.display="none";
+document.getElementById("cancelOrder").onclick = ()=> document.getElementById("checkoutModal").style.display="none";
 
-document.getElementById('orderForm').addEventListener('submit', function(){
+document.getElementById("checkoutBtn").onclick = ()=>{
+  const c = loadCart(); 
+  if(!c.length){ alert("Giỏ hàng trống"); return; }
+  let lines = [], total = 0;
+  c.forEach(ci=>{
+    const b = books.find(x=>x.id===ci.id);
+    const p = b.price || 0;
+    lines.push(`${b.title} x${ci.qty} — ${p===0 ? 'Miễn phí' : formatVND(p)}`);
+    total += p * ci.qty;
+  });
+  lines.push("Tổng: " + formatVND(total));
+  document.getElementById("order_details").value = lines.join("\\n");
+  document.getElementById("cartModal").style.display="none";
+  document.getElementById("checkoutModal").style.display="block";
+};
+
+document.getElementById("orderForm").onsubmit = ()=>{
   localStorage.removeItem(CART_KEY);
-  setTimeout(()=>{ alert('Đơn đặt đã gửi. Vui lòng kiểm tra email để xác nhận.'); updateCartCount(); }, 1000);
-});
-
-const promo = document.getElementById('promo');
-const promoClose = document.getElementById('promoClose');
-const promoShop = document.getElementById('promoShop');
-if(!localStorage.getItem('promo_seen')){ promo.style.display='flex'; localStorage.setItem('promo_seen','1'); }
-promoClose.addEventListener('click', ()=> promo.style.display='none');
-promoShop.addEventListener('click', ()=>{ promo.style.display='none'; document.getElementById('cartBtn').click(); });
+  setTimeout(()=>updateCartCount(), 500);
+};
 
 updateCartCount();
 </script>
