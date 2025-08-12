@@ -5,26 +5,54 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Trí Lộ Trường Tồn — Cửa hàng Ebook</title>
 <link rel="stylesheet" href="styles.css">
+<style>
+/* ====== FIX ẢNH VÀ BỐ CỤC GIỎ HÀNG ====== */
+#cartItems {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.cart-item img {
+  width: 50px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.cart-item-details {
+  flex: 1;
+}
+.cart-item-details strong {
+  display: block;
+  margin-bottom: 4px;
+}
+.cart-item-actions {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.cart-summary {
+  margin-top: 12px;
+  padding-top: 8px;
+  border-top: 1px solid #ccc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>
 </head>
 <body>
 <header class="site-header">
-  <div class="container header-inner">
-    <div class="brand">
-      <img src="images/qr-code.jpg" alt="QR Code" class="qr">
-      <h1>Trí Lộ Trường Tồn</h1>
-    </div>
-    <nav class="main-nav">
-      <a href="index.html">Trang chủ</a>
-      <a href="mailto:vang11112006@gmail.com" target="_blank" rel="noopener">Liên hệ</a>
-      <button id="cartBtn" class="btn primary">Giỏ (<span id="cart-count">0</span>)</button>
-    </nav>
-  </div>
+  ...
 </header>
 
 <main class="container">
-  <section class="books-grid" id="booksGrid">
-    <!-- Sách sẽ được JS render -->
-  </section>
+  <section class="books-grid" id="booksGrid"></section>
 </main>
 
 <!-- Modal giỏ hàng -->
@@ -41,48 +69,11 @@
 </div>
 
 <!-- Modal đặt hàng -->
-<div id="checkoutModal" class="modal">
-  <div class="modal-content">
-    <button class="modal-close" id="closeCheckout">&times;</button>
-    <h3>Form đặt hàng</h3>
-    <form id="orderForm" action="https://formsubmit.co/vang11112006@gmail.com" method="POST">
-      
-      <label for="name">Họ và tên:</label><br>
-      <input type="text" id="name" name="name" required><br><br>
-
-      <label for="email">Email:</label><br>
-      <input type="email" id="email" name="email" required><br><br>
-
-      <label for="phone">Số điện thoại:</label><br>
-      <input type="tel" id="phone" name="phone" required><br><br>
-
-      <!-- Sản phẩm sẽ tự điền từ JS -->
-      <input type="hidden" name="order_details" id="order_details">
-
-      <input type="hidden" name="_next" value="https://trilotruongton.github.io/Tri-lo-truong-ton/thank-you.html">
-      <input type="hidden" name="_captcha" value="true">
-
-      <button type="submit" class="btn primary">Gửi đơn</button>
-      <button type="button" id="cancelOrder" class="btn secondary">Huỷ</button>
-    </form>
-  </div>
-</div>
-
-<footer class="site-footer">
-  <div class="container">
-    <p>© 2025 Trí Lộ Trường Tồn</p>
-  </div>
-</footer>
-
+...
 <script>
 const books = [
   { id: "b1", title: "Tuyệt Mật Nhân Tính", price: 0, priceOrig: 399000, img: "images/tuyet-mat-nhan-tinh.jpg" },
-  { id: "b2", title: "Nhân Tính Đen Trắng", price: 90000, priceOrig: 350000, img: "images/nhan-tinh-den-trang.jpg" },
-  { id: "b3", title: "Tư Duy Sâu Sắc", price: 150000, priceOrig: 560000, img: "images/tu-duy-sau-sac.jpg" },
-  { id: "b4", title: "Thiên Cơ 38 Cục", price: 170000, priceOrig: 560000, img: "images/thien-co-38-cuc.jpg" },
-  { id: "b5", title: "Kiếm Đại", price: 90000, priceOrig: 250000, img: "images/kiem-dai.jpg" },
-  { id: "b6", title: "Nhân Tính Xã Giao", price: 110000, priceOrig: 560000, img: "images/nhan-tinh-xa-giao.jpg" },
-  { id: "b7", title: "Logic Người Nghèo", price: 170000, priceOrig: 560000, img: "images/logic-nguoi-ngheo.jpg" }
+  ...
 ];
 
 function formatVND(n) { return n===0 ? "Miễn phí" : n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+"₫"; }
@@ -128,10 +119,21 @@ function renderCartItems(){
     const b = books.find(x=>x.id===ci.id);
     const p = b.price;
     total += p * ci.qty;
-    html += `<div><img src="${b.img}" alt=""><strong>${b.title}</strong><br>SL: ${ci.qty} — ${formatVND(p)}<br>
-      <button class="dec" data-id="${ci.id}">-</button>
-      <button class="inc" data-id="${ci.id}">+</button>
-      <button class="remove" data-id="${ci.id}">Xóa</button></div><hr>`;
+    html += `
+      <div class="cart-item">
+        <img src="${b.img}" alt="${b.title}">
+        <div class="cart-item-details">
+          <strong>${b.title}</strong>
+          <div class="cart-item-actions">
+            <button class="dec" data-id="${ci.id}">-</button>
+            <span>SL: ${ci.qty}</span>
+            <button class="inc" data-id="${ci.id}">+</button>
+            <span>${formatVND(p)}</span>
+            <button class="remove" data-id="${ci.id}">Xóa</button>
+          </div>
+        </div>
+      </div>
+    `;
   });
   cont.innerHTML = html;
   document.getElementById("cartTotal").textContent = formatVND(total);
@@ -161,7 +163,7 @@ document.getElementById("checkoutBtn").onclick = ()=>{
     total += p * ci.qty;
   });
   lines.push("Tổng: " + formatVND(total));
-  document.getElementById("order_details").value = lines.join("\\n");
+  document.getElementById("order_details").value = lines.join("\n");
   document.getElementById("cartModal").style.display="none";
   document.getElementById("checkoutModal").style.display="block";
 };
