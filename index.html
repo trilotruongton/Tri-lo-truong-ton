@@ -6,23 +6,20 @@
 <title>Trí Lộ Trường Tồn — Cửa hàng Ebook</title>
 <link rel="stylesheet" href="styles.css">
 <style>
-/* Fix ảnh và layout trong giỏ hàng */
-#cartItems {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.cart-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.cart-item img {
+/* Fix ảnh giỏ hàng nhỏ gọn */
+#cartItems img {
   width: 50px !important;
   height: 65px !important;
   object-fit: cover !important;
   border-radius: 4px;
   flex-shrink: 0;
+  display: block;
+}
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
 }
 .cart-item-details {
   flex: 1;
@@ -35,14 +32,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-}
-.cart-summary {
-  margin-top: 12px;
-  padding-top: 8px;
-  border-top: 1px solid #ccc;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 </style>
 </head>
@@ -157,10 +146,15 @@ document.addEventListener("click", e=>{
 function renderCartItems(){
   const c = loadCart();
   const cont = document.getElementById("cartItems");
-  if(!c.length){ cont.innerHTML = "<p>Giỏ hàng trống</p>"; document.getElementById("cartTotal").textContent="0₫"; return; }
+  if(!c.length){
+    cont.innerHTML = "<p>Giỏ hàng trống</p>";
+    document.getElementById("cartTotal").textContent="0₫";
+    return;
+  }
   let html = "", total = 0;
   c.forEach(ci=>{
     const b = books.find(x=>x.id===ci.id);
+    if(!b) return; // tránh lỗi khi không tìm thấy sách
     const p = b.price;
     total += p * ci.qty;
     html += `
@@ -202,6 +196,7 @@ document.getElementById("checkoutBtn").onclick = ()=>{
   let lines = [], total = 0;
   c.forEach(ci=>{
     const b = books.find(x=>x.id===ci.id);
+    if(!b) return;
     const p = b.price || 0;
     lines.push(`${b.title} x${ci.qty} — ${p===0 ? 'Miễn phí' : formatVND(p)}`);
     total += p * ci.qty;
