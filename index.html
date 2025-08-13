@@ -39,7 +39,7 @@
 <header class="site-header">
   <div class="container header-inner">
     <div class="brand">
-      <img src="images/qr-code.jpg" alt="QR Code" class="qr">
+      <img src="images/qr-code.png" alt="QR Code" class="qr">
       <h1>Trí Lộ Trường Tồn</h1>
     </div>
     <nav class="main-nav">
@@ -154,7 +154,7 @@ function renderCartItems(){
   let html = "", total = 0;
   c.forEach(ci=>{
     const b = books.find(x=>x.id===ci.id);
-    if(!b) return; // tránh lỗi khi không tìm thấy sách
+    if(!b) return;
     const p = b.price;
     total += p * ci.qty;
     html += `
