@@ -101,12 +101,11 @@
 <script>
 const books = [
   { id: "b1", title: "Tuyệt Mật Nhân Tính", price: 0, priceOrig: 399000, img: "images/tuyet-mat-nhan-tinh.jpg" },
-  { id: "b2", title: "Nhân Tính Đen Trắng", price: 90000, priceOrig: 350000, img: "images/nhan-tinh-den-trang.jpg" },
-  { id: "b3", title: "Tư Duy Sâu Sắc", price: 150000, priceOrig: 560000, img: "images/tu-duy-sau-sac.jpg" },
-  { id: "b4", title: "Thiên Cơ 38 Cục", price: 170000, priceOrig: 560000, img: "images/thien-co-38-cuc.jpg" },
-  { id: "b5", title: "Kiếm Đại", price: 90000, priceOrig: 250000, img: "images/kiem-dai.jpg" },
-  { id: "b6", title: "Nhân Tính Xã Giao", price: 110000, priceOrig: 560000, img: "images/nhan-tinh-xa-giao.jpg" },
-  { id: "b7", title: "Logic Người Nghèo", price: 170000, priceOrig: 560000, img: "images/logic-nguoi-ngheo.jpg" }
+  { id: "b2", title: "Nhân Tính Đen Trắng", price: 90000, priceOrig: 350000, img: "images/nhan-tinh-den-trang.jpg", preview: "nhan-tinh-den-trang-doc-thu.pdf" },
+  { id: "b3", title: "Tư Duy Sâu Sắc", price: 150000, priceOrig: 560000, img: "images/tu-duy-sau-sac.jpg", preview: "tu-duy-sau-sac-doc-thu.pdf" },
+  { id: "b4", title: "Thiên Cơ 38 Cục", price: 170000, priceOrig: 560000, img: "images/thien-co-38-cuc.jpg", preview: "thien-co-38-cuc-doc-thu.pdf" },
+  { id: "b5", title: "Kiếm Đại", price: 90000, priceOrig: 250000, img: "images/kiem-dai.jpg", preview: "kiem-dai-doc-thu.pdf" },
+  { id: "b6", title: "Logic Người Nghèo", price: 170000, priceOrig: 560000, img: "images/logic-nguoi-ngheo.jpg", preview: "logic-nguoi-ngheo-doc-thu.pdf" }
 ];
 
 function formatVND(n) { return n===0 ? "Miễn phí" : n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+"₫"; }
@@ -119,7 +118,10 @@ books.forEach(b=>{
     <img src="${b.img}" alt="${b.title}">
     <h4>${b.title}</h4>
     <p><del>${formatVND(b.priceOrig)}</del> <strong>${formatVND(b.price)}</strong></p>
-    <button class="add-to-cart" data-id="${b.id}">Thêm vào giỏ</button>
+    <div style="display:flex; gap:6px; flex-wrap:wrap;">
+      <button class="add-to-cart" data-id="${b.id}">Thêm vào giỏ</button>
+      ${b.preview ? `<a href="${b.preview}" target="_blank" class="btn secondary" style="padding:6px 10px; background:#555; color:#fff; text-decoration:none; border-radius:4px;">Xem thử</a>` : ""}
+    </div>
   `;
   grid.appendChild(div);
 });
