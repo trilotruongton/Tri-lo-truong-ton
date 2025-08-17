@@ -2,130 +2,251 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tri Lộ Trường Tồn - Sách</title>
   <style>
-    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f7f7f7; }
-    header { background:#222; color:#fff; padding:15px; text-align:center; font-size:18px; }
-    .sale-banner { background:#ff4444; color:#fff; text-align:center; padding:10px; font-size:20px; font-weight:bold; }
-    .book-list { display:flex; flex-wrap:wrap; justify-content:center; margin:20px; }
-    .book { background:#fff; border-radius:8px; margin:10px; padding:15px; width:220px; box-shadow:0 2px 5px rgba(0,0,0,0.1); text-align:center; }
-    .book img { width:100%; height:280px; object-fit:cover; border-radius:6px; }
-    .price { margin:10px 0; }
-    .old-price { text-decoration: line-through; color:#888; margin-right:5px; }
-    .new-price { color:#e60000; font-weight:bold; }
-    .btn { background:#007bff; color:#fff; padding:8px 12px; border:none; border-radius:4px; cursor:pointer; margin:5px 0; }
-    .btn:hover { background:#0056b3; }
-    #cartBtn { position:fixed; top:10px; right:10px; background:#28a745; padding:10px 15px; border-radius:4px; cursor:pointer; }
-    #cartBtn span { font-weight:bold; }
-    #cartPopup { display:none; position:fixed; top:0; right:0; width:320px; height:100%; background:#fff; box-shadow:-2px 0 6px rgba(0,0,0,0.3); padding:15px; overflow-y:auto; z-index:1000; }
-    #cartPopup h3 { margin-top:0; }
-    #cartPopup img { width:50px; height:65px; object-fit:cover; margin-right:10px; border-radius:4px; }
-    .cart-item { display:flex; align-items:center; margin-bottom:10px; }
-    .cart-summary { margin-top:15px; border-top:1px solid #ccc; padding-top:10px; }
-    .close { position:absolute; top:10px; right:10px; cursor:pointer; font-weight:bold; font-size:18px; }
-    /* Modal đọc thử */
-    #previewModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:2000; }
-    #previewContent { position:relative; background:#fff; width:90%; height:90%; margin:20px auto; border-radius:8px; overflow:hidden; }
-    #previewContent iframe { width:100%; height:100%; border:none; }
-    #closePreview { position:absolute; top:8px; right:12px; font-size:20px; font-weight:bold; color:#333; cursor:pointer; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f8f8;
+    }
+    header {
+      background: #d32f2f;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 20px;
+    }
+    .book {
+      background: white;
+      border-radius: 6px;
+      padding: 15px;
+      width: 220px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    .book img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    .price {
+      margin: 10px 0;
+    }
+    .old-price {
+      text-decoration: line-through;
+      color: #888;
+      font-size: 14px;
+    }
+    .new-price {
+      color: #d32f2f;
+      font-size: 18px;
+      font-weight: bold;
+      margin-left: 5px;
+    }
+    button {
+      margin: 5px;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .btn-cart { background: #1976d2; color: white; }
+    .btn-preview { background: #388e3c; color: white; }
+
+    /* Cart popup */
+    #cartModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+    #cartContent {
+      background: white;
+      width: 90%; max-width: 500px;
+      margin: 50px auto;
+      padding: 20px;
+      border-radius: 6px;
+      max-height: 80%;
+      overflow-y: auto;
+    }
+
+    /* Preview modal */
+    #previewModal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 2000;
+    }
+    #previewContent {
+      background: white;
+      width: 90%; max-width: 800px;
+      margin: 30px auto;
+      border-radius: 6px;
+      height: 90%;
+      display: flex;
+      flex-direction: column;
+    }
+    #previewFrame {
+      flex: 1;
+      border: none;
+      width: 100%;
+    }
+    .closeBtn {
+      background: #d32f2f;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      cursor: pointer;
+      align-self: flex-end;
+      margin: 5px;
+      border-radius: 4px;
+    }
   </style>
 </head>
 <body>
+  <header>🔥 Giảm giá 70% toàn bộ sách 🔥</header>
 
-<header>📚 Tri Lộ Trường Tồn - Sách đặc biệt</header>
-<div class="sale-banner">🔥 Giảm giá sốc 70% cho tất cả các sách! 🔥</div>
+  <div class="container" id="bookList"></div>
 
-<div id="cartBtn">🛒 Giỏ hàng (<span id="cartCount">0</span>)</div>
-
-<div class="book-list" id="bookList"></div>
-
-<!-- Popup giỏ hàng -->
-<div id="cartPopup">
-  <span class="close" onclick="toggleCart()">×</span>
-  <h3>Giỏ hàng</h3>
-  <div id="cartItems"></div>
-  <div class="cart-summary">
-    <div>Tổng: <strong id="cartTotal">0₫</strong></div>
-    <button id="checkoutBtn" class="btn">Đặt mua</button>
+  <!-- Cart Modal -->
+  <div id="cartModal">
+    <div id="cartContent">
+      <h3>Giỏ hàng</h3>
+      <div id="cartItems"></div>
+      <div><strong>Tổng: </strong><span id="cartTotal">0₫</span></div>
+      <button class="closeBtn" onclick="closeCart()">Đóng</button>
+    </div>
   </div>
-</div>
 
-<!-- Modal đọc thử -->
-<div id="previewModal">
-  <div id="previewContent">
-    <span id="closePreview">×</span>
-    <iframe id="previewFrame"></iframe>
+  <!-- Preview Modal -->
+  <div id="previewModal">
+    <div id="previewContent">
+      <button class="closeBtn" onclick="closePreview()">Đóng</button>
+      <iframe id="previewFrame"></iframe>
+    </div>
   </div>
-</div>
 
-<script>
-const books = [
-  { title: "Tuyệt mật nhân tính", image: "images/tuyet-mat-nhan-tinh.jpg", oldPrice: 299000, price: 99000, preview: "trilotruongton/previews/tuyet-mat-nhan-tinh-doc-thu.pdf" },
-  { title: "Nhân tính đen trắng", image: "images/nhan-tinh-den-trang.jpg", oldPrice: 2500000, price: 120000, preview: "trilotruongton/previews/nhan-tinh-den-trang-doc-thu.pdf" },
-  { title: "Logic người nghèo", image: "images/logic-nguoi-ngheo.jpg", oldPrice: 199000, price: 50000, preview: "trilotruongton/previews/logic-nguoi-ngheo-doc-thu.pdf" },
-  { title: "Kiếm đại", image: "images/kiem-dai.jpg", oldPrice: 599000, price: 129000, preview: "trilotruongton/previews/kiem-dai-doc-thu.pdf" },
-  { title: "Thiên cơ 38 cục", image: "images/thien-co-38-cuc.jpg", oldPrice: 2500000, price: 150000, preview: "trilotruongton/previews/thien-co-38-cuc-doc-thu.pdf" },
-  { title: "Tư duy sâu sắc", image: "images/tu-duy-sau-sac.jpg", oldPrice: 2500000, price: 120000, preview: "trilotruongton/previews/tu-duy-sau-sac-doc-thu.pdf" }
-];
+  <script>
+    const books = [
+      {
+        title: "Tuyệt mật nhân tính",
+        image: "images/tuyet-mat-nhan-tinh.jpg",
+        oldPrice: 299000,
+        newPrice: 99000
+      },
+      {
+        title: "Nhân tính đen trắng",
+        image: "images/nhan-tinh-den-trang.jpg",
+        oldPrice: 2500000,
+        newPrice: 120000,
+        preview: "trilotruongton/previews/nhan-tinh-den-trang-doc-thu.pdf"
+      },
+      {
+        title: "Logic người nghèo",
+        image: "images/logic-nguoi-ngheo.jpg",
+        oldPrice: 199000,
+        newPrice: 50000,
+        preview: "trilotruongton/previews/logic-nguoi-ngheo-doc-thu.pdf"
+      },
+      {
+        title: "Kiếm đại",
+        image: "images/kiem-dai.jpg",
+        oldPrice: 599000,
+        newPrice: 129000
+      },
+      {
+        title: "Thiên cơ 38 cục",
+        image: "images/thien-co-38-cuc.jpg",
+        oldPrice: 2500000,
+        newPrice: 150000,
+        preview: "trilotruongton/previews/thien-co-38-cuc-doc-thu.pdf"
+      },
+      {
+        title: "Tư duy sâu sắc",
+        image: "images/tu-duy-sau-sac.jpg",
+        oldPrice: 2500000,
+        newPrice: 120000,
+        preview: "trilotruongton/previews/tu-duy-sau-sac-doc-thu.pdf"
+      },
+      {
+        title: "Xuyên thấu nhân tính",
+        image: "images/xuyen-thau-nhan-tinh.jpg",
+        oldPrice: 299000,
+        newPrice: 99000,
+        preview: "trilotruongton/previews/xuyen-thau-nhan-tinh-doc-thu.pdf"
+      }
+    ];
 
-let cart = [];
+    const bookList = document.getElementById("bookList");
+    const cart = [];
+    const cartItems = document.getElementById("cartItems");
+    const cartTotal = document.getElementById("cartTotal");
 
-function renderBooks() {
-  const bookList = document.getElementById("bookList");
-  bookList.innerHTML = "";
-  books.forEach((book, index) => {
-    const div = document.createElement("div");
-    div.className = "book";
-    div.innerHTML = `
-      <img src="${book.image}" alt="${book.title}">
-      <h4>${book.title}</h4>
-      <div class="price"><span class="old-price">${book.oldPrice.toLocaleString()}₫</span> <span class="new-price">${book.price.toLocaleString()}₫</span></div>
-      <button class="btn" onclick="addToCart(${index})">Thêm vào giỏ</button>
-      ${book.preview ? `<button class="btn" onclick="openPreview('${book.preview}')">Đọc thử</button>` : ""}
-    `;
-    bookList.appendChild(div);
-  });
-}
+    function renderBooks() {
+      bookList.innerHTML = "";
+      books.forEach((book, idx) => {
+        const div = document.createElement("div");
+        div.className = "book";
+        div.innerHTML = `
+          <img src="${book.image}" alt="${book.title}">
+          <h4>${book.title}</h4>
+          <div class="price">
+            <span class="old-price">${book.oldPrice.toLocaleString()}₫</span>
+            <span class="new-price">${book.newPrice.toLocaleString()}₫</span>
+          </div>
+          <button class="btn-cart" onclick="addToCart(${idx})">Thêm vào giỏ</button>
+          ${book.preview ? `<button class="btn-preview" onclick="openPreview('${book.preview}')">Đọc thử</button>` : ""}
+        `;
+        bookList.appendChild(div);
+      });
+    }
 
-function addToCart(index) {
-  const book = books[index];
-  const item = cart.find(i => i.title === book.title);
-  if (item) { item.qty++; } else { cart.push({ ...book, qty: 1 }); }
-  updateCart();
-}
+    function addToCart(index) {
+      const book = books[index];
+      cart.push(book);
+      renderCart();
+      openCart();
+    }
 
-function updateCart() {
-  const cartItems = document.getElementById("cartItems");
-  cartItems.innerHTML = "";
-  let total = 0;
-  cart.forEach(item => {
-    total += item.price * item.qty;
-    const div = document.createElement("div");
-    div.className = "cart-item";
-    div.innerHTML = `<img src="${item.image}"><div>${item.title} x${item.qty} - ${item.price.toLocaleString()}₫</div>`;
-    cartItems.appendChild(div);
-  });
-  document.getElementById("cartCount").innerText = cart.reduce((a, b) => a + b.qty, 0);
-  document.getElementById("cartTotal").innerText = total.toLocaleString() + "₫";
-}
+    function renderCart() {
+      cartItems.innerHTML = "";
+      let total = 0;
+      cart.forEach((item) => {
+        total += item.newPrice;
+        const p = document.createElement("p");
+        p.textContent = `${item.title} - ${item.newPrice.toLocaleString()}₫`;
+        cartItems.appendChild(p);
+      });
+      cartTotal.textContent = total.toLocaleString() + "₫";
+    }
 
-function toggleCart() {
-  const popup = document.getElementById("cartPopup");
-  popup.style.display = popup.style.display === "block" ? "none" : "block";
-}
+    function openCart() { document.getElementById("cartModal").style.display = "block"; }
+    function closeCart() { document.getElementById("cartModal").style.display = "none"; }
 
-function openPreview(file) {
-  document.getElementById("previewFrame").src = file;
-  document.getElementById("previewModal").style.display = "block";
-}
+    function openPreview(file) {
+      document.getElementById("previewFrame").src = file;
+      document.getElementById("previewModal").style.display = "block";
+    }
+    function closePreview() {
+      document.getElementById("previewFrame").src = "";
+      document.getElementById("previewModal").style.display = "none";
+    }
 
-document.getElementById("closePreview").onclick = function() {
-  document.getElementById("previewModal").style.display = "none";
-  document.getElementById("previewFrame").src = "";
-};
-
-renderBooks();
-</script>
+    renderBooks();
+  </script>
 </body>
 </html>
