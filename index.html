@@ -50,18 +50,16 @@
 
 <script>
   const books = [
-    { id: "b1", title: "Tuyệt Mật Nhân Tính", price: 0, priceOrig: 399000, img: "images/tuyet-mat-nhan-tinh.jpg" },
-    { id: "b2", title: "Nhân Tính Đen Trắng", price: 90000, priceOrig: 350000, img: "images/nhan-tinh-den-trang.jpg", preview: "previews/nhan-tinh-den-trang-doc-thu.pdf" },
-    { id: "b3", title: "Tư Duy Sâu Sắc", price: 150000, priceOrig: 560000, img: "images/tu-duy-sau-sac.jpg", preview: "previews/tu-duy-sau-sac-doc-thu.pdf" },
-    { id: "b4", title: "Thiên Cơ 38 Cục", price: 170000, priceOrig: 560000, img: "images/thien-co-38-cuc.jpg", preview: "previews/thien-co-38-cuc-doc-thu.pdf" },
-    { id: "b5", title: "Kiếm Đại", price: 90000, priceOrig: 250000, img: "images/kiem-dai.jpg" },
-    { id: "b6", title: "Logic Người Nghèo", price: 170000, priceOrig: 560000, img: "images/logic-nguoi-ngheo.jpg", preview: "previews/logic-nguoi-ngheo-doc-thu.pdf" }
-  ];
-
+  { id: "b1", title: "Tuyệt Mật Nhân Tính", price: 0, priceOrig: 399000, img: "images/tuyet-mat-nhan-tinh.jpg", preview: "previews/tuyet-mat-nhan-tinh-doc-thu.pdf" },
+  { id: "b2", title: "Nhân Tính Đen Trắng", price: 90000, priceOrig: 350000, img: "images/nhan-tinh-den-trang.jpg", preview: "previews/nhan-tinh-den-trang-doc-thu.pdf" },
+  { id: "b3", title: "Tư Duy Sâu Sắc", price: 150000, priceOrig: 560000, img: "images/tu-duy-sau-sac.jpg", preview: "previews/tu-duy-sau-sac-doc-thu.pdf" },
+  { id: "b4", title: "Thiên Cơ 38 Cục", price: 170000, priceOrig: 560000, img: "images/thien-co-38-cuc.jpg", preview: "previews/thien-co-38-cuc-doc-thu.pdf" },
+  { id: "b5", title: "Kiếm Đại", price: 90000, priceOrig: 250000, img: "images/kiem-dai.jpg" },
+  { id: "b6", title: "Logic Người Nghèo", price: 170000, priceOrig: 560000, img: "images/logic-nguoi-ngheo.jpg", preview: "previews/logic-nguoi-ngheo-doc-thu.pdf" }
+    
   const grid = document.getElementById("bookGrid");
   function formatVND(num) {
     return num.toLocaleString("vi-VN") + "₫";
-  }
 
   books.forEach(b=>{
     const div = document.createElement('div');
