@@ -1,125 +1,218 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tri Lộ Trường Tồn - Sách</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f8f8f8; }
-    h1 { text-align:center; padding:20px; }
-    .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:20px; padding:20px; }
-    .book-item { background:#fff; border-radius:8px; padding:12px; box-shadow:0 2px 6px rgba(0,0,0,0.1); text-align:center; }
-    .book-item img { width:100%; height:280px; object-fit:cover; border-radius:6px; }
-    .book-item h4 { margin:10px 0; font-size:18px; }
-    .book-item p { margin:6px 0; }
-    .btn { padding:6px 10px; border:none; border-radius:4px; cursor:pointer; }
-    .add-to-cart { background:#2196f3; color:#fff; }
-    .btn.secondary { background:#555; color:#fff; text-decoration:none; display:inline-block; }
-    /* Cart popup */
-    #cartPopup { display:none; position:fixed; top:0; right:0; width:320px; height:100%; background:#fff; box-shadow:-2px 0 6px rgba(0,0,0,0.2); z-index:1000; padding:20px; overflow-y:auto; }
-    #cartPopup h3 { margin-top:0; }
-    #closeCart { position:absolute; top:10px; right:10px; cursor:pointer; font-size:18px; }
-    #cartItems img { width:50px; height:65px; object-fit:cover; border-radius:4px; }
-    .cart-item { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
-    .cart-summary { margin-top:15px; font-size:16px; }
-    #cartCount { background:red; color:#fff; border-radius:50%; padding:2px 8px; font-size:12px; margin-left:4px; }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Trí Lộ Trường Tồn — Cửa hàng Ebook</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+/* Fix ảnh giỏ hàng nhỏ gọn */
+#cartItems img {
+  width: 50px !important;
+  height: 65px !important;
+  object-fit: cover !important;
+  border-radius: 4px;
+  flex-shrink: 0;
+  display: block;
+}
+.cart-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.cart-item-details {
+  flex: 1;
+}
+.cart-item-details strong {
+  display: block;
+  margin-bottom: 4px;
+}
+.cart-item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+</style>
 </head>
 <body>
-
-  <h1>📚 Bộ Sách Tri Lộ Trường Tồn</h1>
-
-  <!-- Nút giỏ hàng -->
-  <div style="position:fixed; top:10px; right:10px; cursor:pointer; background:#000; color:#fff; padding:8px 12px; border-radius:6px;" id="cartBtn">
-    🛒 Giỏ hàng <span id="cartCount">0</span>
+<header class="site-header">
+  <div class="container header-inner">
+    <div class="brand">
+      <img src="images/qr-code.png" alt="QR Code" class="qr">
+      <h1>Trí Lộ Trường Tồn</h1>
+    </div>
+    <nav class="main-nav">
+      <a href="index.html">Trang chủ</a>
+      <a href="mailto:vang11112006@gmail.com" target="_blank" rel="noopener">Liên hệ</a>
+      <button id="cartBtn" class="btn primary">Giỏ (<span id="cart-count">0</span>)</button>
+    </nav>
   </div>
+</header>
 
-  <!-- Danh sách sách -->
-  <div class="grid" id="bookGrid"></div>
+<main class="container">
+  <section class="books-grid" id="booksGrid"></section>
+</main>
 
-  <!-- Popup giỏ hàng -->
-  <div id="cartPopup">
-    <span id="closeCart">✖</span>
+<!-- Modal giỏ hàng -->
+<div id="cartModal" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" id="closeCart">&times;</button>
     <h3>Giỏ hàng</h3>
     <div id="cartItems"></div>
     <div class="cart-summary">
-      Tổng: <strong id="cartTotal">0₫</strong>
+      <div>Tổng: <strong id="cartTotal">0₫</strong></div>
+      <button id="checkoutBtn" class="btn primary">Đặt mua</button>
     </div>
-    <button id="checkoutBtn" class="btn add-to-cart" style="margin-top:10px;">Đặt mua</button>
   </div>
+</div>
+
+<!-- Modal đặt hàng -->
+<div id="checkoutModal" class="modal">
+  <div class="modal-content">
+    <button class="modal-close" id="closeCheckout">&times;</button>
+    <h3>Form đặt hàng</h3>
+    <form id="orderForm" action="https://formsubmit.co/vang11112006@gmail.com" method="POST">
+      <label for="name">Họ và tên:</label><br>
+      <input type="text" id="name" name="name" required><br><br>
+
+      <label for="email">Email:</label><br>
+      <input type="email" id="email" name="email" required><br><br>
+
+      <label for="phone">Số điện thoại:</label><br>
+      <input type="tel" id="phone" name="phone" required><br><br>
+
+      <input type="hidden" name="order_details" id="order_details">
+      <input type="hidden" name="_next" value="https://trilotruongton.github.io/Tri-lo-truong-ton/thank-you.html">
+      <input type="hidden" name="_captcha" value="true">
+
+      <button type="submit" class="btn primary">Gửi đơn</button>
+      <button type="button" id="cancelOrder" class="btn secondary">Huỷ</button>
+    </form>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2025 Trí Lộ Trường Tồn</p>
+  </div>
+</footer>
 
 <script>
-  const books = [
-    { id: "b1", title: "Tuyệt Mật Nhân Tính", price: 0, priceOrig: 399000, img: "images/tuyet-mat-nhan-tinh.jpg", preview: "previews/tuyet-mat-nhan-tinh-doc-thu.pdf" },
-    { id: "b2", title: "Nhân Tính Đen Trắng", price: 90000, priceOrig: 350000, img: "images/nhan-tinh-den-trang.jpg", preview: "previews/nhan-tinh-den-trang-doc-thu.pdf" },
-    { id: "b3", title: "Tư Duy Sâu Sắc", price: 150000, priceOrig: 560000, img: "images/tu-duy-sau-sac.jpg", preview: "previews/tu-duy-sau-sac-doc-thu.pdf" },
-    { id: "b4", title: "Thiên Cơ 38 Cục", price: 170000, priceOrig: 560000, img: "images/thien-co-38-cuc.jpg", preview: "previews/thien-co-38-cuc-doc-thu.pdf" },
-    { id: "b5", title: "Kiếm Đại", price: 90000, priceOrig: 250000, img: "images/kiem-dai.jpg" },
-    { id: "b6", title: "Logic Người Nghèo", price: 170000, priceOrig: 560000, img: "images/logic-nguoi-ngheo.jpg", preview: "previews/logic-nguoi-ngheo-doc-thu.pdf" }
-  ];
+const books = [
+  { id: "b1", title: "Tuyệt Mật Nhân Tính", price: 0, priceOrig: 399000, img: "images/tuyet-mat-nhan-tinh.jpg" },
+  { id: "b2", title: "Nhân Tính Đen Trắng", price: 90000, priceOrig: 350000, img: "images/nhan-tinh-den-trang.jpg" },
+  { id: "b3", title: "Tư Duy Sâu Sắc", price: 150000, priceOrig: 560000, img: "images/tu-duy-sau-sac.jpg" },
+  { id: "b4", title: "Thiên Cơ 38 Cục", price: 170000, priceOrig: 560000, img: "images/thien-co-38-cuc.jpg" },
+  { id: "b5", title: "Kiếm Đại", price: 90000, priceOrig: 250000, img: "images/kiem-dai.jpg" },
+  { id: "b6", title: "Nhân Tính Xã Giao", price: 110000, priceOrig: 560000, img: "images/nhan-tinh-xa-giao.jpg" },
+  { id: "b7", title: "Logic Người Nghèo", price: 170000, priceOrig: 560000, img: "images/logic-nguoi-ngheo.jpg" }
+];
 
-  const grid = document.getElementById("bookGrid");
-  function formatVND(num) {
-    return num.toLocaleString("vi-VN") + "₫";
+function formatVND(n) { return n===0 ? "Miễn phí" : n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+"₫"; }
+
+const grid = document.getElementById('booksGrid');
+books.forEach(b=>{
+  const div = document.createElement('div');
+  div.className = 'book-item';
+  div.innerHTML = `
+    <img src="${b.img}" alt="${b.title}">
+    <h4>${b.title}</h4>
+    <p><del>${formatVND(b.priceOrig)}</del> <strong>${formatVND(b.price)}</strong></p>
+    <button class="add-to-cart" data-id="${b.id}">Thêm vào giỏ</button>
+  `;
+  grid.appendChild(div);
+});
+
+const CART_KEY = "cart_data";
+function loadCart() { return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); }
+function saveCart(cart) { localStorage.setItem(CART_KEY, JSON.stringify(cart)); updateCartCount(); }
+function updateCartCount() { const c = loadCart(); document.getElementById("cart-count").textContent = c.reduce((s,i)=>s+i.qty,0); }
+function addToCart(id) {
+  const c = loadCart();
+  const it = c.find(x=>x.id===id);
+  if(it) it.qty++;
+  else c.push({id, qty:1});
+  saveCart(c);
+}
+
+document.addEventListener("click", e=>{
+  if(e.target.classList.contains("add-to-cart")) addToCart(e.target.dataset.id);
+  if(e.target.classList.contains("inc")) changeQty(e.target.dataset.id, 1);
+  if(e.target.classList.contains("dec")) changeQty(e.target.dataset.id, -1);
+  if(e.target.classList.contains("remove")) removeItem(e.target.dataset.id);
+});
+
+function renderCartItems(){
+  const c = loadCart();
+  const cont = document.getElementById("cartItems");
+  if(!c.length){
+    cont.innerHTML = "<p>Giỏ hàng trống</p>";
+    document.getElementById("cartTotal").textContent="0₫";
+    return;
   }
-
-  books.forEach(b=>{
-    const div = document.createElement('div');
-    div.className = 'book-item';
-    div.innerHTML = `
-      <img src="${b.img}" alt="${b.title}">
-      <h4>${b.title}</h4>
-      <p><del>${formatVND(b.priceOrig)}</del> <strong>${formatVND(b.price)}</strong></p>
-      <div style="display:flex; gap:6px; flex-wrap:wrap; justify-content:center;">
-        <button class="add-to-cart" data-id="${b.id}">Thêm vào giỏ</button>
-        ${b.preview ? `<a href="${b.preview}" target="_blank" class="btn secondary">Xem thử</a>` : ""}
+  let html = "", total = 0;
+  c.forEach(ci=>{
+    const b = books.find(x=>x.id===ci.id);
+    if(!b) return;
+    const p = b.price;
+    total += p * ci.qty;
+    html += `
+      <div class="cart-item">
+        <img src="${b.img}" alt="${b.title}">
+        <div class="cart-item-details">
+          <strong>${b.title}</strong>
+          <div class="cart-item-actions">
+            <button class="dec" data-id="${ci.id}">-</button>
+            <span>SL: ${ci.qty}</span>
+            <button class="inc" data-id="${ci.id}">+</button>
+            <span>${formatVND(p)}</span>
+            <button class="remove" data-id="${ci.id}">Xóa</button>
+          </div>
+        </div>
       </div>
     `;
-    grid.appendChild(div);
   });
+  cont.innerHTML = html;
+  document.getElementById("cartTotal").textContent = formatVND(total);
+}
 
-  // Cart logic
-  let cart = {};
-  const cartBtn = document.getElementById("cartBtn");
-  const cartPopup = document.getElementById("cartPopup");
-  const closeCart = document.getElementById("closeCart");
-  const cartItems = document.getElementById("cartItems");
-  const cartTotal = document.getElementById("cartTotal");
-  const cartCount = document.getElementById("cartCount");
+function changeQty(id, d){
+  const c = loadCart(); const it = c.find(x=>x.id===id);
+  if(it){ it.qty += d; if(it.qty<1) it.qty=1; saveCart(c); renderCartItems(); }
+}
+function removeItem(id){
+  let c = loadCart(); c = c.filter(x=>x.id!==id); saveCart(c); renderCartItems();
+}
 
-  cartBtn.onclick = () => cartPopup.style.display = "block";
-  closeCart.onclick = () => cartPopup.style.display = "none";
+document.getElementById("cartBtn").onclick = ()=>{ renderCartItems(); document.getElementById("cartModal").style.display="block"; };
+document.getElementById("closeCart").onclick = ()=> document.getElementById("cartModal").style.display="none";
+document.getElementById("closeCheckout").onclick = ()=> document.getElementById("checkoutModal").style.display="none";
+document.getElementById("cancelOrder").onclick = ()=> document.getElementById("checkoutModal").style.display="none";
 
-  function updateCart() {
-    cartItems.innerHTML = "";
-    let total = 0, count = 0;
-    for (let id in cart) {
-      const item = books.find(b=>b.id===id);
-      const qty = cart[id];
-      total += item.price * qty;
-      count += qty;
-      const row = document.createElement("div");
-      row.className = "cart-item";
-      row.innerHTML = `
-        <img src="${item.img}" alt="${item.title}">
-        <div style="flex:1;">
-          <strong>${item.title}</strong><br>
-          SL: ${qty} × ${formatVND(item.price)}
-        </div>
-      `;
-      cartItems.appendChild(row);
-    }
-    cartTotal.textContent = formatVND(total);
-    cartCount.textContent = count;
-  }
-
-  document.addEventListener("click", function(e) {
-    if (e.target.classList.contains("add-to-cart")) {
-      const id = e.target.dataset.id;
-      cart[id] = (cart[id]||0)+1;
-      updateCart();
-    }
+document.getElementById("checkoutBtn").onclick = ()=>{
+  const c = loadCart(); 
+  if(!c.length){ alert("Giỏ hàng trống"); return; }
+  let lines = [], total = 0;
+  c.forEach(ci=>{
+    const b = books.find(x=>x.id===ci.id);
+    if(!b) return;
+    const p = b.price || 0;
+    lines.push(`${b.title} x${ci.qty} — ${p===0 ? 'Miễn phí' : formatVND(p)}`);
+    total += p * ci.qty;
   });
+  lines.push("Tổng: " + formatVND(total));
+  document.getElementById("order_details").value = lines.join("\n");
+  document.getElementById("cartModal").style.display="none";
+  document.getElementById("checkoutModal").style.display="block";
+};
+
+document.getElementById("orderForm").onsubmit = ()=>{
+  localStorage.removeItem(CART_KEY);
+  setTimeout(()=>updateCartCount(), 500);
+};
+
+updateCartCount();
 </script>
 </body>
 </html>
