@@ -56,6 +56,45 @@
 }
 .fb-btn { background: #1877f2; }
 .msg-btn { background: #00b2ff; }
+
+/* Bố cục sách */
+.book-item {
+  border: 1px solid #ddd;
+  padding: 12px;
+  margin: 12px;
+  text-align: center;
+  border-radius: 6px;
+}
+.book-item img {
+  width: 100%;
+  max-width: 220px;
+  height: auto;
+  margin: 0 auto 10px;
+  display: block;
+}
+.book-item h4 { margin: 8px 0; font-size: 18px; }
+.book-item p { margin: 6px 0; }
+
+/* Nút chung */
+.btn {
+  display: inline-block;
+  margin: 5px 3px;
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn.primary {
+  background: #ff6600;
+  color: #fff;
+  border: none;
+}
+.btn.secondary {
+  background: #f1f1f1;
+  color: #333;
+  border: 1px solid #ccc;
+}
 </style>
 </head>
 <body>
@@ -143,7 +182,7 @@ books.forEach(b=>{
     <img src="${b.img}" alt="${b.title}">
     <h4>${b.title}</h4>
     <p><del>${formatVND(b.priceOrig)}</del> <strong>${formatVND(b.price)}</strong></p>
-    <button class="add-to-cart" data-id="${b.id}">Thêm vào giỏ</button>
+    <button class="btn primary add-to-cart" data-id="${b.id}">Thêm vào giỏ</button>
     ${b.preview ? `<a href="${b.preview}" target="_blank" class="btn secondary">Đọc thử</a>` : ""}
   `;
   grid.appendChild(div);
