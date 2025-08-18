@@ -33,31 +33,29 @@
   flex-wrap: wrap;
   gap: 6px;
 }
-
-/* Floating social buttons */
-.social-buttons {
+/* Nút nổi Facebook + Messenger */
+.floating-buttons {
   position: fixed;
   right: 15px;
-  bottom: 100px;
+  bottom: 15px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   z-index: 9999;
 }
-.social-btn {
+.floating-buttons a {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 22px;
-  color: white;
+  justify-content: center;
   text-decoration: none;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+  font-size: 26px;
+  color: white;
 }
-.social-btn.fb { background: #1877F2; }   /* màu Facebook */
-.social-btn.ms { background: #0084FF; }   /* màu Messenger */
+.fb-btn { background: #1877f2; }
+.msg-btn { background: #00b2ff; }
 </style>
 </head>
 <body>
@@ -100,21 +98,23 @@
     <form id="orderForm" action="https://formsubmit.co/vang11112006@gmail.com" method="POST">
       <label for="name">Họ và tên:</label><br>
       <input type="text" id="name" name="name" required><br><br>
-
       <label for="email">Email:</label><br>
       <input type="email" id="email" name="email" required><br><br>
-
       <label for="phone">Số điện thoại:</label><br>
       <input type="tel" id="phone" name="phone" required><br><br>
-
       <input type="hidden" name="order_details" id="order_details">
       <input type="hidden" name="_next" value="https://trilotruongton.github.io/Tri-lo-truong-ton/thank-you.html">
       <input type="hidden" name="_captcha" value="true">
-
       <button type="submit" class="btn primary">Gửi đơn</button>
       <button type="button" id="cancelOrder" class="btn secondary">Huỷ</button>
     </form>
   </div>
+</div>
+
+<!-- Nút Facebook + Messenger -->
+<div class="floating-buttons">
+  <a href="https://www.facebook.com/share/1GUZZyoPeB/?mibextid=wwXIfr" target="_blank" class="fb-btn">f</a>
+  <a href="https://m.me/100037979446635" target="_blank" class="msg-btn">💬</a>
 </div>
 
 <footer class="site-footer">
@@ -123,21 +123,14 @@
   </div>
 </footer>
 
-<!-- Floating Facebook + Messenger -->
-<div class="social-buttons">
-  <a href="https://www.facebook.com/share/1GUZZyoPeB/?mibextid=wwXIfr" target="_blank" class="social-btn fb">f</a>
-  <a href="https://m.me/1GUZZyoPeB" target="_blank" class="social-btn ms">💬</a>
-</div>
-
 <script>
 const books = [
-  { id: "b1", title: "Tuyệt Mật Nhân Tính", price: 0, priceOrig: 399000, img: "images/tuyet-mat-nhan-tinh.jpg" },
-  { id: "b2", title: "Nhân Tính Đen Trắng", price: 90000, priceOrig: 350000, img: "images/nhan-tinh-den-trang.jpg" },
-  { id: "b3", title: "Tư Duy Sâu Sắc", price: 150000, priceOrig: 560000, img: "images/tu-duy-sau-sac.jpg" },
-  { id: "b4", title: "Thiên Cơ 38 Cục", price: 170000, priceOrig: 560000, img: "images/thien-co-38-cuc.jpg" },
+  { id: "b1", title: "Tuyệt Mật Nhân Tính", price: 0, priceOrig: 399000, img: "images/tuyet-mat-nhan-tinh.jpg", preview: "previews/tuyet-mat-nhan-tinh-doc-thu.pdf" },
+  { id: "b2", title: "Nhân Tính Đen Trắng", price: 90000, priceOrig: 350000, img: "images/nhan-tinh-den-trang.jpg", preview: "previews/nhan-tinh-den-trang-doc-thu.pdf" },
+  { id: "b3", title: "Tư Duy Sâu Sắc", price: 150000, priceOrig: 560000, img: "images/tu-duy-sau-sac.jpg", preview: "previews/tu-duy-sau-sac-doc-thu.pdf" },
+  { id: "b4", title: "Thiên Cơ 38 Cục", price: 170000, priceOrig: 560000, img: "images/thien-co-38-cuc.jpg", preview: "previews/thien-co-38-cuc-doc-thu.pdf" },
   { id: "b5", title: "Kiếm Đại", price: 90000, priceOrig: 250000, img: "images/kiem-dai.jpg" },
-  { id: "b6", title: "Nhân Tính Xã Giao", price: 110000, priceOrig: 560000, img: "images/nhan-tinh-xa-giao.jpg" },
-  { id: "b7", title: "Logic Người Nghèo", price: 170000, priceOrig: 560000, img: "images/logic-nguoi-ngheo.jpg" }
+  { id: "b7", title: "Logic Người Nghèo", price: 170000, priceOrig: 560000, img: "images/logic-nguoi-ngheo.jpg", preview: "previews/logic-nguoi-ngheo-doc-thu.pdf" }
 ];
 
 function formatVND(n) { return n===0 ? "Miễn phí" : n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+"₫"; }
@@ -151,10 +144,12 @@ books.forEach(b=>{
     <h4>${b.title}</h4>
     <p><del>${formatVND(b.priceOrig)}</del> <strong>${formatVND(b.price)}</strong></p>
     <button class="add-to-cart" data-id="${b.id}">Thêm vào giỏ</button>
+    ${b.preview ? `<a href="${b.preview}" target="_blank" class="btn secondary">Đọc thử</a>` : ""}
   `;
   grid.appendChild(div);
 });
 
+// ==== Giỏ hàng ====
 const CART_KEY = "cart_data";
 function loadCart() { return JSON.parse(localStorage.getItem(CART_KEY) || "[]"); }
 function saveCart(cart) { localStorage.setItem(CART_KEY, JSON.stringify(cart)); updateCartCount(); }
