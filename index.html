@@ -33,6 +33,31 @@
   flex-wrap: wrap;
   gap: 6px;
 }
+
+/* Floating social buttons */
+.social-buttons {
+  position: fixed;
+  right: 15px;
+  bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+}
+.social-btn {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  color: white;
+  text-decoration: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.25);
+}
+.social-btn.fb { background: #1877F2; }   /* màu Facebook */
+.social-btn.ms { background: #0084FF; }   /* màu Messenger */
 </style>
 </head>
 <body>
@@ -97,6 +122,12 @@
     <p>© 2025 Trí Lộ Trường Tồn</p>
   </div>
 </footer>
+
+<!-- Floating Facebook + Messenger -->
+<div class="social-buttons">
+  <a href="https://www.facebook.com/share/1GUZZyoPeB/?mibextid=wwXIfr" target="_blank" class="social-btn fb">f</a>
+  <a href="https://m.me/1GUZZyoPeB" target="_blank" class="social-btn ms">💬</a>
+</div>
 
 <script>
 const books = [
