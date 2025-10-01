@@ -6,6 +6,10 @@
   <title>Trí Lộ Trường Tồn - Ebook</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/png" href="images/favicon.png">
+  <style>
+    .qr-box { text-align:center; margin-top:20px; }
+    .qr-box img { width:250px; height:250px; }
+  </style>
 </head>
 <body>
   <header>
@@ -92,24 +96,22 @@
     <div class="modal-content">
       <button class="modal-close" id="closeCheckout">&times;</button>
       <h3>Thông tin đặt hàng</h3>
-      <form id="orderForm" action="https://formsubmit.co/vang11112006@gmail.com" method="POST" onsubmit="return goThankYou(event)">
+      <form id="orderForm" onsubmit="return showQR(event)">
         <input type="text" name="Tên khách hàng" placeholder="Họ và tên" required>
         <input type="email" name="Email" placeholder="Email" required>
         <input type="text" name="SĐT" placeholder="Số điện thoại">
         <textarea name="Ghi chú" placeholder="Ghi chú thêm"></textarea>
-        <button type="submit" class="btn">Gửi đơn</button>
+        <button type="submit" class="btn">Xác nhận & Thanh toán</button>
       </form>
+      <div id="qrBox" class="qr-box" style="display:none;">
+        <h4>Quét mã để thanh toán</h4>
+        <img id="qrImage" src="" alt="QR Code">
+      </div>
     </div>
   </div>
 
-  <!-- Nút Facebook + Messenger -->
-  <div class="social-buttons">
-    <a href="https://www.facebook.com" target="_blank">Facebook</a>
-    <a href="https://m.me" target="_blank">Messenger</a>
-  </div>
-
   <script>
-    // 📚 Giá thực tế để tính giỏ hàng
+    // 📚 Giá để tính toán
     const books = [
       { id: 1, title: "Tuyệt Mật Nhân Tính", price: 0 },
       { id: 2, title: "Nhân Tính Đen Trắng", price: 90000 },
@@ -127,6 +129,8 @@
     const cartItems = document.getElementById("cartItems");
     const checkoutBtn = document.getElementById("checkoutBtn");
     const cartCount = document.getElementById("cartCount");
+    const qrBox = document.getElementById("qrBox");
+    const qrImage = document.getElementById("qrImage");
 
     const CART_KEY = "ebook_cart";
 
@@ -179,7 +183,7 @@
     closeCheckout.onclick = () => checkoutModal.style.display = "none";
     checkoutBtn.onclick = () => { cartModal.style.display = "none"; checkoutModal.style.display = "block"; };
 
-    function goThankYou(e){
+    function showQR(e){
       e.preventDefault();
       const cart = loadCart();
       let total = 0;
@@ -188,12 +192,16 @@
         if(b) total += b.price * ci.qty;
       });
 
-      // gửi form về email
-      e.target.target = "_blank";
-      e.target.submit();
+      // Sinh QR động (VietQR VCB)
+      const accountNo = "1054523832";
+      const accountName = "VANG A SONG";
+      const bankCode = "VCB";
+      const info = encodeURIComponent("Thanh toan Ebook");
+      const qrUrl = `https://img.vietqr.io/image/${bankCode}-${accountNo}-compact2.jpg?amount=${total}&addInfo=${info}&accountName=${encodeURIComponent(accountName)}`;
 
-      // chuyển sang trang thankyou.html kèm số tiền
-      window.location.href = "thankyou.html?amount=" + total;
+      qrImage.src = qrUrl;
+      qrBox.style.display = "block";
+
       localStorage.removeItem(CART_KEY);
       updateCartCount();
       return false;
