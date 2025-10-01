@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoàn tất đơn hàng - Trí Lộ Trường Tồn</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; padding: 30px; background: #f9f9f9; }
+    .container { max-width: 480px; margin: auto; background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 3px 10px rgba(0,0,0,0.1);}
+    h2 { color: #2c7; margin-bottom: 15px; }
+    .bank-info { text-align: left; margin-top: 15px; font-size: 14px; }
+    .qr { max-width: 260px; margin: 15px auto; display: block; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🎉 Đặt hàng thành công!</h2>
+    <p>Vui lòng quét mã QR dưới đây để thanh toán:</p>
+
+    <img id="paymentQR" class="qr" src="" alt="QR Thanh toán">
+    <div id="paymentBankInfo" class="bank-info"></div>
+
+    <p style="margin-top:20px; font-size:14px; color:#555;">
+      Sau khi chuyển khoản, admin sẽ gửi Ebook vĩnh viễn cho bạn qua Email/Messenger.<br>
+      Nếu chưa nhận được, vui lòng liên hệ qua Fanpage Facebook ❤️
+    </p>
+  </div>
+
+  <script>
+    const BANK_CODE = "VCB"; // Vietcombank
+    const ACCOUNT_NUMBER = "1054523832";
+    const ACCOUNT_NAME = "VANG A SONG";
+
+    const params = new URLSearchParams(window.location.search);
+    const total = params.get("amount") || 0;
+    const orderId = "DH" + Date.now();
+
+    const qrUrl = `https://img.vietqr.io/image/${BANK_CODE}-${ACCOUNT_NUMBER}-compact.png?amount=${total}&addInfo=${orderId}`;
+    document.getElementById("paymentQR").src = qrUrl;
+    document.getElementById("paymentBankInfo").innerHTML = `
+      <p><strong>Chủ TK:</strong> ${ACCOUNT_NAME}</p>
+      <p><strong>STK:</strong> ${ACCOUNT_NUMBER}</p>
+      <p><strong>Ngân hàng:</strong> Vietcombank</p>
+      <p><strong>Số tiền:</strong> ${Number(total).toLocaleString("vi-VN")}₫</p>
+      <p><strong>Nội dung:</strong> ${orderId}</p>
+    `;
+  </script>
+</body>
+</html>
