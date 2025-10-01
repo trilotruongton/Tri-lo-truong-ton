@@ -53,11 +53,14 @@
   </div>
 
   <script>
-    // Danh sách sách
+    // 📚 Danh sách đầy đủ 6 sách
     const books = [
       { id: 1, title: "Tuyệt Mật Nhân Tính", price: 0, desc: "0đ, sách tặng" },
-      { id: 2, title: "Thiên Cơ 38 Cục", price: 120000, desc: "Giá: 120.000đ" },
-      { id: 3, title: "Logic Người Nghèo", price: 100000, desc: "Giá: 100.000đ" }
+      { id: 2, title: "Nhân Tính Đen Trắng", price: 90000, desc: "Giá: 90.000đ" },
+      { id: 3, title: "Tư Duy Sâu Sắc", price: 150000, desc: "Giá: 150.000đ" },
+      { id: 4, title: "Thiên Cơ 38 Cục", price: 120000, desc: "Giá: 120.000đ" },
+      { id: 5, title: "Kiếm Đại", price: 90000, desc: "Giá: 90.000đ" },
+      { id: 6, title: "Logic Người Nghèo", price: 100000, desc: "Giá: 100.000đ" }
     ];
 
     const bookList = document.getElementById("bookList");
@@ -147,7 +150,7 @@
       e.target.target = "_blank";
       e.target.submit();
 
-      // chuyển sang trang thankyou
+      // chuyển sang trang thankyou.html kèm số tiền
       window.location.href = "thankyou.html?amount=" + total;
       localStorage.removeItem(CART_KEY);
       updateCartCount();
