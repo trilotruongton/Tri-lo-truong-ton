@@ -18,7 +18,63 @@
 
   <main>
     <h2>Danh sách Ebook</h2>
-    <div id="bookList" class="book-list"></div>
+    <div id="bookList" class="book-list">
+
+      <!-- 1. Tuyệt Mật Nhân Tính -->
+      <div class="book">
+        <img src="images/tuyetmat.jpg" alt="Tuyệt Mật Nhân Tính">
+        <h4>Tuyệt Mật Nhân Tính</h4>
+        <p>0đ, sách tặng</p>
+        <a href="docs/tuyetmat.pdf" target="_blank">📖 Đọc thử</a><br>
+        <button onclick="addToCart(1)">Thêm vào giỏ</button>
+      </div>
+
+      <!-- 2. Nhân Tính Đen Trắng -->
+      <div class="book">
+        <img src="images/nhantinh.jpg" alt="Nhân Tính Đen Trắng">
+        <h4>Nhân Tính Đen Trắng</h4>
+        <p>Giá: 90.000đ</p>
+        <a href="docs/nhantinh.pdf" target="_blank">📖 Đọc thử</a><br>
+        <button onclick="addToCart(2)">Thêm vào giỏ</button>
+      </div>
+
+      <!-- 3. Tư Duy Sâu Sắc -->
+      <div class="book">
+        <img src="images/tuduy.jpg" alt="Tư Duy Sâu Sắc">
+        <h4>Tư Duy Sâu Sắc</h4>
+        <p>Giá: 150.000đ</p>
+        <a href="docs/tuduy.pdf" target="_blank">📖 Đọc thử</a><br>
+        <button onclick="addToCart(3)">Thêm vào giỏ</button>
+      </div>
+
+      <!-- 4. Thiên Cơ 38 Cục -->
+      <div class="book">
+        <img src="images/thienco.jpg" alt="Thiên Cơ 38 Cục">
+        <h4>Thiên Cơ 38 Cục</h4>
+        <p>Giá: 120.000đ</p>
+        <a href="docs/thienco.pdf" target="_blank">📖 Đọc thử</a><br>
+        <button onclick="addToCart(4)">Thêm vào giỏ</button>
+      </div>
+
+      <!-- 5. Kiếm Đại -->
+      <div class="book">
+        <img src="images/kiemdai.jpg" alt="Kiếm Đại">
+        <h4>Kiếm Đại</h4>
+        <p>Giá: 90.000đ</p>
+        <a href="docs/kiemdai.pdf" target="_blank">📖 Đọc thử</a><br>
+        <button onclick="addToCart(5)">Thêm vào giỏ</button>
+      </div>
+
+      <!-- 6. Logic Người Nghèo -->
+      <div class="book">
+        <img src="images/logic.jpg" alt="Logic Người Nghèo">
+        <h4>Logic Người Nghèo</h4>
+        <p>Giá: 100.000đ</p>
+        <a href="docs/logic.pdf" target="_blank">📖 Đọc thử</a><br>
+        <button onclick="addToCart(6)">Thêm vào giỏ</button>
+      </div>
+
+    </div>
   </main>
 
   <!-- Modal Giỏ hàng -->
@@ -53,17 +109,16 @@
   </div>
 
   <script>
-    // 📚 Danh sách đầy đủ 6 sách
+    // 📚 Dữ liệu giá sách (giữ id đúng với nút addToCart)
     const books = [
-      { id: 1, title: "Tuyệt Mật Nhân Tính", price: 0, desc: "0đ, sách tặng" },
-      { id: 2, title: "Nhân Tính Đen Trắng", price: 90000, desc: "Giá: 90.000đ" },
-      { id: 3, title: "Tư Duy Sâu Sắc", price: 150000, desc: "Giá: 150.000đ" },
-      { id: 4, title: "Thiên Cơ 38 Cục", price: 120000, desc: "Giá: 120.000đ" },
-      { id: 5, title: "Kiếm Đại", price: 90000, desc: "Giá: 90.000đ" },
-      { id: 6, title: "Logic Người Nghèo", price: 100000, desc: "Giá: 100.000đ" }
+      { id: 1, title: "Tuyệt Mật Nhân Tính", price: 0 },
+      { id: 2, title: "Nhân Tính Đen Trắng", price: 90000 },
+      { id: 3, title: "Tư Duy Sâu Sắc", price: 150000 },
+      { id: 4, title: "Thiên Cơ 38 Cục", price: 120000 },
+      { id: 5, title: "Kiếm Đại", price: 90000 },
+      { id: 6, title: "Logic Người Nghèo", price: 100000 }
     ];
 
-    const bookList = document.getElementById("bookList");
     const cartBtn = document.getElementById("cartBtn");
     const cartModal = document.getElementById("cartModal");
     const checkoutModal = document.getElementById("checkoutModal");
@@ -93,19 +148,6 @@
       let total = 0;
       cart.forEach(item => total += item.qty);
       cartCount.textContent = total;
-    }
-
-    function renderBooks() {
-      books.forEach(b => {
-        const div = document.createElement("div");
-        div.className = "book";
-        div.innerHTML = `
-          <h4>${b.title}</h4>
-          <p>${b.desc}</p>
-          <button onclick="addToCart(${b.id})">Thêm vào giỏ</button>
-        `;
-        bookList.appendChild(div);
-      });
     }
 
     function addToCart(id) {
@@ -157,7 +199,6 @@
       return false;
     }
 
-    renderBooks();
     updateCartCount();
   </script>
 </body>
