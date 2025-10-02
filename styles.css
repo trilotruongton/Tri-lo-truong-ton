@@ -15,9 +15,12 @@
 
 .book img {
   width: 100%;
-  max-height: 320px;
-  object-fit: cover;
+  max-width: 220px;   /* giống bản gốc */
+  height: 300px;      /* đồng bộ chiều cao */
+  object-fit: cover;  /* ảnh vừa khung */
   border-radius: 8px;
+  margin: 0 auto 10px;
+  display: block;
 }
 
 .book h4 {
@@ -64,16 +67,70 @@
 }
 
 /* ==== Modal giỏ hàng ==== */
-.modal-content {
-  font-size: 18px;
-  padding: 25px;
-  max-width: 600px;
+#cartModal, 
+#checkoutModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6); /* nền mờ tối */
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
 }
 
-/* ==== Ảnh đại diện cửa hàng (favicon/logo) ==== */
+#cartModal .modal-content,
+#checkoutModal .modal-content {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 90%;
+  font-size: 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  position: relative;
+  animation: fadeInScale 0.3s ease;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #555;
+}
+
+.modal-close:hover {
+  color: #000;
+}
+
+.cart-summary {
+  margin-top: 20px;
+  text-align: right;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ==== Logo QR (favicon) ==== */
 .qr {
-  width: 50px;        /* nhỏ gọn hơn */
-  height: 50px;       /* để bo tròn chuẩn */
+  width: 50px;
+  height: 50px;
   border-radius: 50%; /* hình tròn */
   margin-right: 10px;
   object-fit: cover;
@@ -81,13 +138,15 @@
 
 /* ==== Nút giỏ hàng trên header ==== */
 #cartBtn {
-  font-size: 16px;     /* chữ to rõ */
-  padding: 10px 18px;  /* to đều với các nút dưới */
+  font-size: 16px;
+  padding: 10px 18px;
   border-radius: 6px;
-  background: #ff6600; /* đồng bộ màu cam như "Thêm vào giỏ" */
+  background: #ff6600;
   color: #fff;
   border: none;
   cursor: pointer;
+  position: relative;
+  z-index: 999;
 }
 
 #cartBtn:hover {
