@@ -15,9 +15,9 @@
 
 .book img {
   width: 100%;
-  max-width: 220px;   /* giống bản gốc */
-  height: 300px;      /* đồng bộ chiều cao */
-  object-fit: cover;  /* ảnh vừa khung */
+  max-width: 220px;
+  height: 300px;
+  object-fit: cover;
   border-radius: 8px;
   margin: 0 auto 10px;
   display: block;
@@ -67,18 +67,24 @@
 }
 
 /* ==== Modal giỏ hàng ==== */
-#cartModal, 
+#cartModal,
 #checkoutModal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.6); /* nền mờ tối */
+  background: rgba(0,0,0,0.6);
   display: none;
+  z-index: 10000;
+}
+
+/* Khi JS set display:block → ép thành flex để căn giữa */
+#cartModal[style*="block"],
+#checkoutModal[style*="block"] {
+  display: flex !important;
   align-items: center;
   justify-content: center;
-  z-index: 10000;
 }
 
 #cartModal .modal-content,
@@ -131,7 +137,7 @@
 .qr {
   width: 50px;
   height: 50px;
-  border-radius: 50%; /* hình tròn */
+  border-radius: 50%;
   margin-right: 10px;
   object-fit: cover;
 }
@@ -151,4 +157,20 @@
 
 #cartBtn:hover {
   background: #ca6515;
+}
+
+/* ==== Responsive cho mobile ==== */
+@media (max-width: 480px) {
+  .book img {
+    max-width: 160px;
+    height: 220px;
+  }
+  .qr {
+    width: 35px;
+    height: 35px;
+  }
+  #cartBtn {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
 }
