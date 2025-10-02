@@ -1,3 +1,4 @@
+/* ==== Bố cục sách ==== */
 .book-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -29,7 +30,8 @@
   margin: 8px 0;
 }
 
-.book a, .book button {
+.book a,
+.book button {
   display: block;
   width: 100%;
   padding: 14px 0;
@@ -61,9 +63,33 @@
   background: #ca6515;
 }
 
-/* Modal giỏ hàng */
+/* ==== Modal giỏ hàng ==== */
 .modal-content {
   font-size: 18px;
   padding: 25px;
   max-width: 600px;
+}
+
+/* ==== Ảnh đại diện cửa hàng (favicon/logo) ==== */
+.qr {
+  width: 50px;        /* nhỏ gọn hơn */
+  height: 50px;       /* để bo tròn chuẩn */
+  border-radius: 50%; /* hình tròn */
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+/* ==== Nút giỏ hàng trên header ==== */
+#cartBtn {
+  font-size: 16px;     /* chữ to rõ */
+  padding: 10px 18px;  /* to đều với các nút dưới */
+  border-radius: 6px;
+  background: #ff6600; /* đồng bộ màu cam như "Thêm vào giỏ" */
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+#cartBtn:hover {
+  background: #ca6515;
 }
