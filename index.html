@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sách Ebook Tri Lộ Trường Tồn</title>
+  <title>Đạo Ngộ Thỏ – Ebook</title>
+  <link rel="icon" type="image/png" href="images/favicon.png">
   <style>
     body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
     header { background: #333; color: white; padding: 20px; text-align: center; }
@@ -26,7 +27,7 @@
 </head>
 <body>
   <header>
-    <h1>📚 Sách Ebook Tri Lộ Trường Tồn</h1>
+    <h1>📚 Sách Ebook Đạo Ngộ Thỏ</h1>
     <button onclick="openCart()">🛒 Giỏ hàng (<span id="cartCount">0</span>)</button>
   </header>
 
@@ -63,12 +64,12 @@
   <script>
     const CART_KEY = "cartEbook";
     const books = [
-      {id:1,name:"Tuyệt mật nhân tính",price:0,img:"images/tuyet-mat-nhan-tinh.jpg"},
-      {id:2,name:"Thiên cơ 38 cục",price:120000,img:"images/thien-co-38-cuc.jpg"},
-      {id:3,name:"Logic người nghèo",price:100000,img:"images/logic-nguoi-ngheo.jpg"},
-      {id:4,name:"Tư tưởng Lý Thất Dạ",price:150000,img:"images/ly-that-da.jpg"},
-      {id:5,name:"Tâm thức và thế giới 108 cục",price:170000,img:"images/108-cuc.jpg"},
-      {id:6,name:"Trí lộ trường tồn",price:180000,img:"images/tri-lo-truong-ton.jpg"}
+      {id:1,name:"Tuyệt mật nhân tính",price:0,img:"images/tuyet-mat-nhan-tinh.jpg",link:"#"},
+      {id:2,name:"Thiên cơ 38 cục",price:120000,img:"images/thien-co-38-cuc.jpg",link:"#"},
+      {id:3,name:"Logic người nghèo",price:100000,img:"images/logic-nguoi-ngheo.jpg",link:"#"},
+      {id:4,name:"Tư tưởng Lý Thất Dạ",price:150000,img:"images/ly-that-da.jpg",link:"#"},
+      {id:5,name:"Tâm thức và thế giới 108 cục",price:170000,img:"images/108-cuc.jpg",link:"#"},
+      {id:6,name:"Đạo Ngộ Thỏ",price:180000,img:"images/tri-lo-truong-ton.jpg",link:"#"}
     ];
 
     function loadCart(){
@@ -146,7 +147,7 @@
           <img src="${b.img}" alt="${b.name}">
           <h4>${b.name}</h4>
           <p>${b.price===0?'<strong>0đ (Sách tặng)</strong>':b.price.toLocaleString("vi-VN")+'₫'}</p>
-          <a href="#" target="_blank">📖 Đọc thử</a>
+          <a href="${b.link}" target="_blank">📖 Đọc thử</a>
           <button onclick="addToCart(${b.id})">Thêm vào giỏ</button>
         </div>`;
     });
