@@ -3,186 +3,114 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trí Lộ Trường Tồn - Ebook</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="icon" type="image/png" href="images/favicon.png">
+  <title>Sách Ebook Tri Lộ Trường Tồn</title>
   <style>
-    .qr-box { text-align:center; margin-top:20px; }
-    .qr-box img { width:250px; height:250px; }
+    body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
+    header { background: #333; color: white; padding: 20px; text-align: center; }
+    h1 { margin: 0; }
+    .book-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 20px; }
+    .book { border: 2px solid #ccc; padding: 20px; border-radius: 10px; text-align: center; background: #fff; }
+    .book img { width: 100%; max-height: 320px; object-fit: cover; border-radius: 8px; }
+    .book h4 { margin: 15px 0 10px; font-size: 20px; }
+    .book p { font-size: 18px; margin: 8px 0; }
+    .book a, .book button { display: block; width: 100%; padding: 14px 0; font-size: 16px; margin-top: 10px; border-radius: 6px; text-align: center; font-weight: bold; }
+    .book a { background: #2980b9; color: #fff; text-decoration: none; }
+    .book a:hover { background: #1f6391; }
+    .book button { background: #e67e22; color: #fff; border: none; cursor: pointer; }
+    .book button:hover { background: #ca6515; }
+    #cartModal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
+    .modal-content { background: #fff; margin: 5% auto; padding: 25px; border-radius: 10px; width: 90%; max-width: 600px; font-size: 18px; }
+    .modal-close { float: right; font-size: 20px; cursor: pointer; background: none; border: none; }
+    #qrBox { text-align: center; margin-top: 20px; }
   </style>
 </head>
 <body>
   <header>
-    <div class="brand">
-      <img src="images/favicon.png" alt="Logo" class="qr">
-      <h1>Trí Lộ Trường Tồn</h1>
-    </div>
-    <button id="cartBtn">🛒 Giỏ hàng (<span id="cartCount">0</span>)</button>
+    <h1>📚 Sách Ebook Tri Lộ Trường Tồn</h1>
+    <button onclick="openCart()">🛒 Giỏ hàng (<span id="cartCount">0</span>)</button>
   </header>
 
-  <main>
-    <h2>Danh sách Ebook</h2>
-    <div id="bookList" class="book-list">
+  <div class="book-list" id="bookList"></div>
 
-      <!-- 1. Tuyệt Mật Nhân Tính -->
-      <div class="book">
-        <img src="images/tuyet-mat-nhan-tinh.jpg" alt="Tuyệt Mật Nhân Tính">
-        <h4>Tuyệt Mật Nhân Tính</h4>
-        <p><del>50.000đ</del> ➝ <strong>0đ, sách tặng</strong></p>
-        <a href="previews/tuyet-mat-nhan-tinh-doc-thu.pdf" target="_blank">📖 Đọc thử</a><br>
-        <button onclick="addToCart(1)">Thêm vào giỏ</button>
-      </div>
-
-      <!-- 2. Nhân Tính Đen Trắng -->
-      <div class="book">
-        <img src="images/nhan-tinh-den-trang.jpg" alt="Nhân Tính Đen Trắng">
-        <h4>Nhân Tính Đen Trắng</h4>
-        <p><del>120.000đ</del> ➝ <strong>90.000đ</strong></p>
-        <a href="previews/nhan-tinh-den-trang-doc-thu.pdf" target="_blank">📖 Đọc thử</a><br>
-        <button onclick="addToCart(2)">Thêm vào giỏ</button>
-      </div>
-
-      <!-- 3. Tư Duy Sâu Sắc -->
-      <div class="book">
-        <img src="images/tu-duy-sau-sac.jpg" alt="Tư Duy Sâu Sắc">
-        <h4>Tư Duy Sâu Sắc</h4>
-        <p><del>200.000đ</del> ➝ <strong>150.000đ</strong></p>
-        <a href="previews/tu-duy-sau-sac-doc-thu.pdf" target="_blank">📖 Đọc thử</a><br>
-        <button onclick="addToCart(3)">Thêm vào giỏ</button>
-      </div>
-
-      <!-- 4. Thiên Cơ 38 Cục -->
-      <div class="book">
-        <img src="images/thien-co-38-cuc.jpg" alt="Thiên Cơ 38 Cục">
-        <h4>Thiên Cơ 38 Cục</h4>
-        <p><del>170.000đ</del> ➝ <strong>120.000đ</strong></p>
-        <a href="previews/thien-co-38-cuc-doc-thu.pdf" target="_blank">📖 Đọc thử</a><br>
-        <button onclick="addToCart(4)">Thêm vào giỏ</button>
-      </div>
-
-      <!-- 5. Kiếm Đại -->
-      <div class="book">
-        <img src="images/kiem-dai.jpg" alt="Kiếm Đại">
-        <h4>Kiếm Đại</h4>
-        <p><del>120.000đ</del> ➝ <strong>90.000đ</strong></p>
-        <a href="#" target="_blank">📖 Đọc thử</a><br>
-        <button onclick="addToCart(5)">Thêm vào giỏ</button>
-      </div>
-
-      <!-- 6. Logic Người Nghèo -->
-      <div class="book">
-        <img src="images/logic-nguoi-ngheo.jpg" alt="Logic Người Nghèo">
-        <h4>Logic Người Nghèo</h4>
-        <p><del>170.000đ</del> ➝ <strong>100.000đ</strong></p>
-        <a href="previews/logic-nguoi-ngheo-doc-thu.pdf" target="_blank">📖 Đọc thử</a><br>
-        <button onclick="addToCart(6)">Thêm vào giỏ</button>
-      </div>
-
-    </div>
-  </main>
-
-  <!-- Modal Giỏ hàng -->
-  <div id="cartModal" class="modal">
+  <!-- Giỏ hàng -->
+  <div id="cartModal">
     <div class="modal-content">
-      <button class="modal-close" id="closeCart">&times;</button>
-      <h3>Giỏ hàng</h3>
+      <button class="modal-close" onclick="closeCart()">✖</button>
+      <h2>Giỏ hàng của bạn</h2>
       <div id="cartItems"></div>
-      <button id="checkoutBtn" class="btn">Đặt hàng</button>
-    </div>
-  </div>
+      <p><strong>Tổng cộng:</strong> <span id="cartTotal">0</span>₫</p>
 
-  <!-- Modal Checkout -->
-  <div id="checkoutModal" class="modal">
-    <div class="modal-content">
-      <button class="modal-close" id="closeCheckout">&times;</button>
-      <h3>Thông tin đặt hàng</h3>
-      <form id="orderForm" onsubmit="return showQR(event)">
-        <input type="text" name="Tên khách hàng" placeholder="Họ và tên" required>
-        <input type="email" name="Email" placeholder="Email" required>
-        <input type="text" name="SĐT" placeholder="Số điện thoại">
-        <textarea name="Ghi chú" placeholder="Ghi chú thêm"></textarea>
-        <button type="submit" class="btn">Xác nhận & Thanh toán</button>
+      <form id="checkoutForm" onsubmit="return showQR(event)">
+        <h3>Thông tin người nhận</h3>
+        <input type="text" id="name" placeholder="Họ và tên" required style="width:100%;padding:8px;margin:5px 0;">
+        <input type="email" id="email" placeholder="Email nhận Ebook" required style="width:100%;padding:8px;margin:5px 0;">
+        <input type="tel" id="phone" placeholder="Số điện thoại (nếu có)" style="width:100%;padding:8px;margin:5px 0;">
+        <button type="submit" style="width:100%;padding:10px;background:#27ae60;color:white;border:none;border-radius:6px;font-weight:bold;font-size:16px;">Xác nhận & Thanh toán</button>
       </form>
+
+      <!-- QR động -->
       <div id="qrBox" class="qr-box" style="display:none;">
-        <h4>Quét mã để thanh toán</h4>
-        <img id="qrImage" src="" alt="QR Code">
+        <h4>Quét mã QR để thanh toán</h4>
+        <img id="qrImage" src="" alt="QR Code" style="max-width:300px;margin:10px auto;display:block;">
+        <p id="totalText" style="font-weight:bold;font-size:18px;margin:10px 0;"></p>
+        <p style="color:#555;font-size:15px;">
+          Quét mã QR để thanh toán, bạn thanh toán xong admin sẽ gửi file Ebook qua Email hoặc Messenger nhé ❤️
+        </p>
       </div>
     </div>
   </div>
 
   <script>
-    // 📚 Giá để tính toán
+    const CART_KEY = "cartEbook";
     const books = [
-      { id: 1, title: "Tuyệt Mật Nhân Tính", price: 0 },
-      { id: 2, title: "Nhân Tính Đen Trắng", price: 90000 },
-      { id: 3, title: "Tư Duy Sâu Sắc", price: 150000 },
-      { id: 4, title: "Thiên Cơ 38 Cục", price: 120000 },
-      { id: 5, title: "Kiếm Đại", price: 90000 },
-      { id: 6, title: "Logic Người Nghèo", price: 100000 }
+      {id:1,name:"Tuyệt mật nhân tính",price:0,img:"images/tuyet-mat-nhan-tinh.jpg"},
+      {id:2,name:"Thiên cơ 38 cục",price:120000,img:"images/thien-co-38-cuc.jpg"},
+      {id:3,name:"Logic người nghèo",price:100000,img:"images/logic-nguoi-ngheo.jpg"},
+      {id:4,name:"Tư tưởng Lý Thất Dạ",price:150000,img:"images/ly-that-da.jpg"},
+      {id:5,name:"Tâm thức và thế giới 108 cục",price:170000,img:"images/108-cuc.jpg"},
+      {id:6,name:"Trí lộ trường tồn",price:180000,img:"images/tri-lo-truong-ton.jpg"}
     ];
 
-    const cartBtn = document.getElementById("cartBtn");
-    const cartModal = document.getElementById("cartModal");
-    const checkoutModal = document.getElementById("checkoutModal");
-    const closeCart = document.getElementById("closeCart");
-    const closeCheckout = document.getElementById("closeCheckout");
-    const cartItems = document.getElementById("cartItems");
-    const checkoutBtn = document.getElementById("checkoutBtn");
-    const cartCount = document.getElementById("cartCount");
-    const qrBox = document.getElementById("qrBox");
-    const qrImage = document.getElementById("qrImage");
-
-    const CART_KEY = "ebook_cart";
-
-    function formatVND(x) {
-      if (x === 0) return "0đ, sách tặng";
-      return x.toLocaleString("vi-VN") + "₫";
+    function loadCart(){
+      return JSON.parse(localStorage.getItem(CART_KEY)||"[]");
+    }
+    function saveCart(c){ localStorage.setItem(CART_KEY,JSON.stringify(c)); }
+    function updateCartCount(){
+      const c=loadCart();
+      document.getElementById("cartCount").innerText=c.reduce((t,i)=>t+i.qty,0);
     }
 
-    function loadCart() {
-      return JSON.parse(localStorage.getItem(CART_KEY) || "[]");
-    }
-
-    function saveCart(cart) {
-      localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    }
-
-    function updateCartCount() {
-      const cart = loadCart();
-      let total = 0;
-      cart.forEach(item => total += item.qty);
-      cartCount.textContent = total;
-    }
-
-    function addToCart(id) {
-      let cart = loadCart();
-      const item = cart.find(x => x.id === id);
-      if (item) {
-        item.qty++;
-      } else {
-        cart.push({ id, qty: 1 });
-      }
-      saveCart(cart);
+    function addToCart(id){
+      const c=loadCart();
+      const i=c.find(x=>x.id===id);
+      if(i){ i.qty++; } else { c.push({id,qty:1}); }
+      saveCart(c);
       updateCartCount();
+      alert("Đã thêm vào giỏ hàng!");
     }
 
-    function renderCart() {
-      const cart = loadCart();
-      if (cart.length === 0) {
-        cartItems.innerHTML = "<p>Giỏ hàng trống</p>";
-        return;
-      }
-      cartItems.innerHTML = cart.map(ci => {
-        const book = books.find(b => b.id === ci.id);
-        return `<p>${book.title} x ${ci.qty} = ${formatVND(book.price * ci.qty)}</p>`;
-      }).join("");
+    function openCart(){
+      const modal=document.getElementById("cartModal");
+      const list=document.getElementById("cartItems");
+      const cart=loadCart();
+      let html="";
+      let total=0;
+      cart.forEach(ci=>{
+        const b=books.find(x=>x.id===ci.id);
+        if(b){
+          const cost=b.price*ci.qty;
+          total+=cost;
+          html+=`<p>${b.name} x ${ci.qty} = ${cost.toLocaleString("vi-VN")}₫</p>`;
+        }
+      });
+      list.innerHTML=html||"<p>Giỏ hàng trống</p>";
+      document.getElementById("cartTotal").innerText=total.toLocaleString("vi-VN");
+      modal.style.display="block";
     }
 
-    cartBtn.onclick = () => { renderCart(); cartModal.style.display = "block"; };
-    closeCart.onclick = () => cartModal.style.display = "none";
-    closeCheckout.onclick = () => checkoutModal.style.display = "none";
-    checkoutBtn.onclick = () => { cartModal.style.display = "none"; checkoutModal.style.display = "block"; };
+    function closeCart(){ document.getElementById("cartModal").style.display="none"; }
 
+    // ✅ QR động hiển thị tổng tiền + hướng dẫn
     function showQR(e){
       e.preventDefault();
       const cart = loadCart();
@@ -192,21 +120,36 @@
         if(b) total += b.price * ci.qty;
       });
 
-      // Sinh QR động (VietQR VCB)
       const accountNo = "1054523832";
       const accountName = "VANG A SONG";
-      const bankCode = "VCB";
+      const bankCode = "vietcombank";
       const info = encodeURIComponent("Thanh toan Ebook");
-      const qrUrl = `https://img.vietqr.io/image/${bankCode}-${accountNo}-compact2.jpg?amount=${total}&addInfo=${info}&accountName=${encodeURIComponent(accountName)}`;
+      const qrUrl = `https://img.vietqr.io/image/${bankCode}-${accountNo}-compact2.png?amount=${total}&addInfo=${info}&accountName=${encodeURIComponent(accountName)}`;
 
-      qrImage.src = qrUrl;
-      qrBox.style.display = "block";
+      document.getElementById("qrImage").src = qrUrl;
+      document.getElementById("qrBox").style.display = "block";
+      document.getElementById("totalText").innerText = "Tổng thanh toán: " + total.toLocaleString("vi-VN") + "₫";
 
-      localStorage.removeItem(CART_KEY);
-      updateCartCount();
+      setTimeout(() => {
+        localStorage.removeItem(CART_KEY);
+        updateCartCount();
+      }, 3000);
+
       return false;
     }
 
+    // render danh sách sách
+    const listDiv=document.getElementById("bookList");
+    books.forEach(b=>{
+      listDiv.innerHTML+=`
+        <div class="book">
+          <img src="${b.img}" alt="${b.name}">
+          <h4>${b.name}</h4>
+          <p>${b.price===0?'<strong>0đ (Sách tặng)</strong>':b.price.toLocaleString("vi-VN")+'₫'}</p>
+          <a href="#" target="_blank">📖 Đọc thử</a>
+          <button onclick="addToCart(${b.id})">Thêm vào giỏ</button>
+        </div>`;
+    });
     updateCartCount();
   </script>
 </body>
