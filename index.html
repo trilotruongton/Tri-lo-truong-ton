@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Đạo Ngộ Thỏ – Ebook</title>
+  <title>Đạo Ngộ Thỏ</title>
   <link rel="icon" type="image/png" href="images/favicon.png">
   <style>
     body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 0; padding: 0; }
     header { background: #333; color: white; padding: 20px; text-align: center; }
-    h1 { margin: 0; }
+    h1 { margin: 0; font-size: 28px; }
     .book-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; padding: 20px; }
     .book { border: 2px solid #ccc; padding: 20px; border-radius: 10px; text-align: center; background: #fff; }
     .book img { width: 100%; max-height: 320px; object-fit: cover; border-radius: 8px; }
@@ -27,7 +27,7 @@
 </head>
 <body>
   <header>
-    <h1>📚 Sách Ebook Đạo Ngộ Thỏ</h1>
+    <h1>🐇 Đạo Ngộ Thỏ</h1>
     <button onclick="openCart()">🛒 Giỏ hàng (<span id="cartCount">0</span>)</button>
   </header>
 
@@ -64,17 +64,15 @@
   <script>
     const CART_KEY = "cartEbook";
     const books = [
-      {id:1,name:"Tuyệt mật nhân tính",price:0,img:"images/tuyet-mat-nhan-tinh.jpg",link:"#"},
-      {id:2,name:"Thiên cơ 38 cục",price:120000,img:"images/thien-co-38-cuc.jpg",link:"#"},
-      {id:3,name:"Logic người nghèo",price:100000,img:"images/logic-nguoi-ngheo.jpg",link:"#"},
-      {id:4,name:"Tư tưởng Lý Thất Dạ",price:150000,img:"images/ly-that-da.jpg",link:"#"},
-      {id:5,name:"Tâm thức và thế giới 108 cục",price:170000,img:"images/108-cuc.jpg",link:"#"},
-      {id:6,name:"Đạo Ngộ Thỏ",price:180000,img:"images/tri-lo-truong-ton.jpg",link:"#"}
+      {id:1,name:"Tuyệt mật nhân tính",price:0,img:"images/tuyet-mat-nhan-tinh.jpg"},
+      {id:2,name:"Thiên cơ 38 cục",price:120000,img:"images/thien-co-38-cuc.jpg"},
+      {id:3,name:"Logic người nghèo",price:100000,img:"images/logic-nguoi-ngheo.jpg"},
+      {id:4,name:"Tư tưởng Lý Thất Dạ",price:150000,img:"images/ly-that-da.jpg"},
+      {id:5,name:"Tâm thức và thế giới 108 cục",price:170000,img:"images/108-cuc.jpg"},
+      {id:6,name:"Trí lộ trường tồn",price:180000,img:"images/tri-lo-truong-ton.jpg"}
     ];
 
-    function loadCart(){
-      return JSON.parse(localStorage.getItem(CART_KEY)||"[]");
-    }
+    function loadCart(){ return JSON.parse(localStorage.getItem(CART_KEY)||"[]"); }
     function saveCart(c){ localStorage.setItem(CART_KEY,JSON.stringify(c)); }
     function updateCartCount(){
       const c=loadCart();
@@ -124,11 +122,12 @@
       const accountNo = "1054523832";
       const accountName = "VANG A SONG";
       const bankCode = "vietcombank";
-      const info = encodeURIComponent("Thanh toan Ebook");
+      const info = encodeURIComponent("Thanh toan Ebook Dao Ngo Tho");
       const qrUrl = `https://img.vietqr.io/image/${bankCode}-${accountNo}-compact2.png?amount=${total}&addInfo=${info}&accountName=${encodeURIComponent(accountName)}`;
 
       document.getElementById("qrImage").src = qrUrl;
       document.getElementById("qrBox").style.display = "block";
+      document.getElementById("checkoutForm").style.display = "none"; // 🟢 Ẩn form khi nhấn thanh toán
       document.getElementById("totalText").innerText = "Tổng thanh toán: " + total.toLocaleString("vi-VN") + "₫";
 
       setTimeout(() => {
@@ -147,7 +146,7 @@
           <img src="${b.img}" alt="${b.name}">
           <h4>${b.name}</h4>
           <p>${b.price===0?'<strong>0đ (Sách tặng)</strong>':b.price.toLocaleString("vi-VN")+'₫'}</p>
-          <a href="${b.link}" target="_blank">📖 Đọc thử</a>
+          <a href="#" target="_blank">📖 Đọc thử</a>
           <button onclick="addToCart(${b.id})">Thêm vào giỏ</button>
         </div>`;
     });
